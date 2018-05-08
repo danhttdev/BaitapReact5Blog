@@ -1,0 +1,75 @@
+/* body {
+    padding-top: 70px; 
+} */
+.rowpost {
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 25px 0 rgba(0, 0, 0, 0.19);
+}
+.row2 {
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.row3 {
+    width: 100%;
+    -moz-box-shadow:    inset 0 0 4px #3e363654;
+    -webkit-box-shadow: inset 0 0 px #3e363654;
+    box-shadow:         inset 0 0 20px #3e363654;
+}
+.detail {
+    font-size: 13px;
+}
+.thumbnailme {
+    margin-bottom: 2px;
+}
+.btndelete {
+    position: absolute;
+    top:10px;
+    right: 10px;
+    color: red;
+    padding: 4px 7px;
+    font-weight: bold;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+.btndelete:hover {
+    background-color: red;
+}
+.btnlike {
+    background-image: url(../img/like.png);
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 30px;
+}
+.btncomment {
+    background-image: url(../img/comment.png);
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 30px;
+}
+.comment {
+    margin-bottom: 5px;
+}
+.form-control {
+    margin-bottom: 3px;
+}
+/* .male {
+    display: block;
+    width: 200px;
+    height: 200pxs;
+    background-image: url(../img/male.png);
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.female {
+    width: 60%;
+    height: 60%;
+    background-image: url(../img/female.png);
+} */
+
+.img-responsive {
+    width: 70%;
+}
