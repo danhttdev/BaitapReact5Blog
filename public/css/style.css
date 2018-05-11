@@ -1,18 +1,23 @@
 /* body {
     padding-top: 70px; 
 } */
+body {
+    /* overflow-y: hidden; // hide vertical */
+    overflow: scroll;
+    overflow-x: hidden;
+}
 .rowpost {
-    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 25px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 25px 0 rgba(0, 0, 0, 0.19); */
 }
 .row2 {
     position: relative;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19); */
 }
 .row3 {
     width: 100%;
-    -moz-box-shadow:    inset 0 0 4px #3e363654;
+    /* -moz-box-shadow:    inset 0 0 4px #3e363654;
     -webkit-box-shadow: inset 0 0 px #3e363654;
-    box-shadow:         inset 0 0 20px #3e363654;
+    box-shadow:         inset 0 0 20px #3e363654; */
 }
 .detail {
     font-size: 13px;
@@ -25,7 +30,7 @@
     top:10px;
     right: 10px;
     color: red;
-    padding: 4px 7px;
+    padding: 2px 5px;
     font-weight: bold;
     border: 1px solid gray;
     border-radius: 2px;
@@ -33,8 +38,29 @@
 .btndelete:hover {
     background-color: red;
 }
+.btnedit {
+    position: absolute;
+    top:10px;
+    right: 40px;
+    color: rgb(90, 220, 47);
+    padding: 2px 5px;
+    font-weight: bold;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+.btnedit:hover {
+    background-color: rgb(255, 153, 0);
+}
 .btnlike {
     background-image: url(../img/like.png);
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 30px;
+}
+.btnliked {
+    background-image: url(../img/liked.png);
     background-size: 60%;
     background-repeat: no-repeat;
     background-position: center;
@@ -75,4 +101,42 @@
 }
 .btn-nav {
     margin-left: 5px;
+}
+
+.btnoption {
+    margin-left: 5px;
+}
+.avatar-male {
+    background-image: url(../img/male.png);
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 40px;
+}
+.avatar-female {
+    background-image: url(../img/female.png);
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 40px;
+}
+.btnsetting {
+    background-image: url(../img/setting.png);
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 50px;
+}
+
+.thumbnailme:hover {
+    background-color: #4646463a;
+}
+
+.btn-num-like:hover {
+    cursor: pointer;
+    background-color: rgb(192, 244, 164);
+    
 }

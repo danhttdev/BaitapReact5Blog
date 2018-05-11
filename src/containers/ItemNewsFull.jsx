@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 class ItemNewsFull extends Component {
   render() {
     return (
-        <div class="row ">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-                <div class="thumbnail row2">
-                    <div class="caption">
+        <div className="row ">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                <div className="thumbnail row2">
+                    <div className="caption">
                         <h3>Facebook đã tạo hiệu ứng xoxo như thế nào?</h3>
-                        <b class="detail">Danhtan</b><span class="detail"> đã đăng vào </span><i class="detail">20/10/2017</i>
+                        <b className="detail">Danhtan</b><span className="detail"> đã đăng vào </span><i className="detail">20/10/2017</i>
                         <p>
                         Trong quá trình đi làm, nhất là nếu làm frontend thì chắc chắn sẽ có một lúc nào đó các bạn bị 
                         Chrome (trình duyệt nói chung) chửi vô mặt những thứ đại loại liên quan
@@ -16,26 +16,26 @@ class ItemNewsFull extends Component {
                         đại đa số các bạn làm Web developer đều …
                         </p>
                         <p>
-                            <a  class="btn btnlike"> </a>
-                            <a  class="btndelete">X</a>
-                            <a  class="btn btncomment"> </a>
+                            <a  className="btn btnlike"> </a>
+                            <a  className="btndelete">X</a>
+                            <a  className="btn btncomment"> </a>
                         </p>
                     </div>
-                    <div class="thumbnail">
-                        <textarea class="form-control comment" rows="2"></textarea>
-                        <a  class="btn btn-default">Post</a>
-                        <a  class="btn btn-default">Cancel</a>
+                    <div className="thumbnail">
+                        <textarea className="form-control comment" rows="2"></textarea>
+                        <a  className="btn btn-default">Post</a>
+                        <a  className="btn btn-default">Cancel</a>
                     </div>
-                    <div class="thumbnail rowinput thumbnailme">
-                        <div class="caption">
+                    <div className="thumbnail rowinput thumbnailme">
+                        <div className="caption">
                             <b>Danhtan</b>
                             <p>
                                 Vui nhỉ
                             </p>
                         </div>
                     </div>
-                    <div class="thumbnail rowinput thumbnailme">
-                        <div class="caption">
+                    <div className="thumbnail rowinput thumbnailme">
+                        <div className="caption">
                             <b>Tinh phan</b>
                             <p>
                                 =))
