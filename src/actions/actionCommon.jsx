@@ -19,6 +19,7 @@ export function atx_getdata() {
             //let info ={ username:'', password:''};
             axios.get(link)
             .then((res)=> {
+                console.log(res.data);
                 dispatch(at_common_toggle_permit());
                 dispatch(at_news_add_arr(res.data.news));
                 dispatch(at_account_add_arr(res.data.accounts));

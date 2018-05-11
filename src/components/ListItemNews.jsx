@@ -5,10 +5,11 @@ const uuid = require('uuid');
 
 class ListItemNews extends Component {
   render() {
+    const arr = [...this.props.news].reverse();
     return (
         <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
             {
-                this.props.news.map((item) => {
+                arr.map((item) => {
                     return <ItemNews 
                         key={uuid()}
                         idNews= { item.idnews}

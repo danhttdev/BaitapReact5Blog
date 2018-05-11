@@ -61,6 +61,7 @@ export function atx_login(username, password, cb_success) {
                 dispatch(at_common_toggle_permit());
                 if (res.data.key.trim() === LOGIN_COMPLETED) {
                     //alert(LOGIN_COMPLETED);
+                    console.log("loginnnn");
                     console.log(res);
                     dispatch(at_account_set_login_true());
                     dispatch(at_account_login(res.data.account));

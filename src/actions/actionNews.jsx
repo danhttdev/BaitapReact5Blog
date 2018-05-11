@@ -7,14 +7,41 @@ import {
     NEWS_EDIT,
     NEWS_LIKE,
     NEWS_UNLIKE,
-    NEWS_TOGGLE_LIKE
+    NEWS_TOGGLE_LIKE,
+    HOST
 }   from '../constants/constants';
+
+import {
+    at_common_toggle_permit
+}   from './actionCommon';
+import axios from 'axios';
 
 export function at_news_add(news) {
     return {
         type: NEWS_ADD,
         payload: {
             news
+        }
+    }
+}
+export function atx_news_add(news, cb_success){
+    return (dispatch, getStore) => {
+        if (getStore().reducerCommon.isPermit){
+            dispatch(at_common_toggle_permit());
+            let link=`${HOST}`;
+            axios.post(link, news)
+            .then((res)=> {
+                dispatch(at_common_toggle_permit());
+                if (res.data) {
+                    const news2={...news, idnews: res.data.id, arrLikes:[],arrComments:[],views:0};
+                    dispatch(at_news_add(news2));
+                    cb_success(res.data.account);
+                }
+                else {
+                }
+            }).catch(error => {
+                dispatch(at_common_toggle_permit());
+            });
         }
     }
 }

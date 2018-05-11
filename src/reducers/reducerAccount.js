@@ -21,10 +21,7 @@ export default function reducerAccount(state = initialStateAccount, action) {
                 isLogin: true
             }
         case ACCOUNT_LOGOUT:
-            localStorage.removeItem('idlogin');
-            localStorage.removeItem('username');
-            localStorage.removeItem('password');
-            
+            localStorage.removeItem('account');
             return {
                 userlogin: null,
                 isLogin: false

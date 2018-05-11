@@ -8,7 +8,7 @@ class Home extends Component {
   render() {
     return (
         <div className="container">
-            { this.props.idlogin?<FormAddNews />:''}
+            { this.props.isLogin?<FormAddNews />:''}
             <ItemHotRecent />
             <ItemNewsFull />
         </div>
@@ -18,7 +18,7 @@ class Home extends Component {
 
 function MapStateToProps(state){
   return {
-      idlogin: state.reducerAccount.userlogin?state.reducerAccount.userlogin.idlogin:null,
+      isLogin: state.reducerAccount.isLogin?true:false,
   }
 }
 

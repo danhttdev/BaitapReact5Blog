@@ -79,14 +79,14 @@ class ItemNews extends Component {
         return (
             <div className="thumbnail row2">
                 <div className="caption">
-                    <h5>idnews ={this.props.idNews}</h5>
+                    {/* <h5>idnews ={this.props.idNews}</h5>
                     <h5>title ={this.props.title}</h5>
                     <h5>content ={this.props.content}</h5>
                     <h5>iduser ={this.props.iduser}</h5>
                     <h5>fullname ={this.props.fullname}</h5>
                     <h5>date ={this.props.date}</h5>
                     <h5>views ={this.props.views}</h5>
-                    <h5>like ={this.props.likes}</h5>
+                    <h5>like ={this.props.likes}</h5> */}
 
                     <h3>{ this.props.title }</h3>
                     <b className="detail">{ this.props.fullname }</b><span className="detail"> đã đăng vào </span><i className="detail">{ this.props.date }..{this.props.views} views</i>

@@ -13,9 +13,10 @@ import {
 export default function reducer(state = initialStateNews, action) {
     switch (action.type) { 
         case NEWS_ADD:
+            const arr=[...state.news,{...action.payload.news}]
             return {
                 ...state,
-                news: state.news.push(action.payload.news)
+                news: [...state.news, {...action.payload.news}]
             }
         case NEWS_ADD_ARR:
             return {

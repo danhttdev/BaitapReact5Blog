@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-
+import { atx_news_add } from '../actions/actionNews';
+import {connect} from 'react-redux';
+import { getDate } from '../function';
 
 class FormAddNews extends Component {
     constructor(props){
         super(props);
         this.state = {
             title:'',
-            content:''
+            content:'',
+            iduser:'',
+            date:'',
         }
     }
     onChange = (e) => {
@@ -18,7 +22,12 @@ class FormAddNews extends Component {
     }
     onSubmit= (e) => {
         e.preventDefault();
-        console.log(this.state);
+        this.props.atx_news_add({   iduser: parseInt(this.props.iduser,10),
+                                    title:this.state.title,
+                                    content:this.state.content, 
+                                    date:getDate(), 
+                                    fullname:this.props.fullname});
+       
     }
     onCancel = () => {
         this.setState({
@@ -62,5 +71,15 @@ class FormAddNews extends Component {
     );
     }
 }
-
-export default FormAddNews;
+function mapStateToProps(state) {
+    return {
+      iduser: state.reducerAccount.userlogin.id,
+      fullname: state.reducerAccount.userlogin.fullname
+    };
+}
+  
+const mapDispatchToProps = {
+    atx_news_add
+}
+  
+export default connect(mapStateToProps,mapDispatchToProps)(FormAddNews);
