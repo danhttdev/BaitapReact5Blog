@@ -1,5 +1,6 @@
 export const initialStateCommon = {
   isPermit:true,
+  isLoaded:false,
   path:[
     {path:"/", name: "MyBlog.net"}, 
     {path:"/newslatest", name: "Tin mới"}, 
@@ -54,6 +55,7 @@ export const initialStateAccount = {
   isLogin:false,
 };
 export const initialStateNews = {
+  
   news: [
     { idnews:'idnew1',
       title:'facebook1',
@@ -305,6 +307,7 @@ export const initialStateNews = {
     },
   
   ],
+
 };
 
 export const ACCOUNT_TOGGLE_LOGIN       = 'ACCOUNT_TOGGLE_LOGIN';
@@ -322,6 +325,7 @@ export const NEWS_DELETE_COMMENT        = 'NEWS_DELETE_COMMENT';
 export const NEWS_ADD_ARR               = 'NEWS_ADD_ARR'; 
 export const NEWS_TOGGLE_LIKE           = 'NEWS_TOGGLE_LIKE'; 
 export const COMMON_TOGGLE_PERMIT       = 'COMMON_TOGGLE_PERMIT';
+export const COMMON_LOADED              = 'COMMON_LOADED';
 
 
 

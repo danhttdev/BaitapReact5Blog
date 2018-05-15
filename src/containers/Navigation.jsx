@@ -3,15 +3,26 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom'
 import { at_account_logout } from '../actions/actionAccount';
 class Navigation extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            userlogin: null,
+        }
+    }
     logout = (props) => {
-        //props.history.push('/login');
         this.props.at_account_logout();
     }
     signup = () =>{
         this.props.at_account_logout();
     }
+    componentWillMount(){
+        if (this.props.isLogin){
+            this.setState({
+                userlogin: {...this.props.userlogin}
+            })
+        }
+    }
     render() {
-        console.log(this.props.isLogin);
         return (
             <nav className="navbar navbar-inverse">
                 <div className="container">
@@ -39,7 +50,8 @@ class Navigation extends Component {
                         
                             {
                                 this.props.isLogin?<Link to='/'><img className='avatar-female'/>
-                                 {/* Chào {this.props.userlogin.username } */}
+                                 {/* Chào {this.state.userlogin===null?'':this.state.userlogin.fullname } */}
+                                 {/* Chao { JSON.parse(localStorage.getItem('userlogin')).fullname} */}
                                  </Link>
                                 :<Link to='/login' className="btn btn-warning navbar-btn btn-nav">Đăng nhập</Link>
                             }
@@ -76,7 +88,7 @@ class Navigation extends Component {
 function MapStateToProps(state){
     return {
         isLogin: state.reducerAccount.isLogin,
-        // userlogin: state.reducerAccount.userlogin
+        userlogin: state.reducerAccount.userlogin
     }
 }
 const MapDispatchToProps = {

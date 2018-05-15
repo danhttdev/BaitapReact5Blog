@@ -1,6 +1,7 @@
 import {
     initialStateCommon,
-    COMMON_TOGGLE_PERMIT
+    COMMON_TOGGLE_PERMIT,
+    COMMON_LOADED
 } from "../constants/constants";
 
 export default function reducer(state = initialStateCommon, action) {
@@ -9,6 +10,11 @@ export default function reducer(state = initialStateCommon, action) {
             return {
                 ...state,
                 isPermit: !state.isPermit
+            }
+        case COMMON_LOADED:
+            return {
+                ...state,
+                isLoaded: true,
             }
         default:
             return state;

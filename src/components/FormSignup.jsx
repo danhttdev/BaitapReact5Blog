@@ -29,7 +29,7 @@ class FormSignup extends Component {
         e.preventDefault();
         if ( this.state.password === this.state.repassword){
             const cb = () => {
-                console.log("OKK");
+                this.props.history2.push("/login");
             }
             this.props.atx_signup(this.state, cb);
         } else {

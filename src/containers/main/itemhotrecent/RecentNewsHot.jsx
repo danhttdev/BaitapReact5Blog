@@ -1,96 +1,38 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import ItemNewsHot from '../../../components/ItemNewsHot';
+const uuid = require('uuid');
 
 class RecentNewsHot extends Component {
-  render() {
-    return (
-        <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div className="thumbnail row2">
-                <div className="caption">
-                    <h3>Bài viết xem nhiều nhất</h3>
-                </div>
-                <div className="thumbnail rowinput thumbnailme">
+    render() {
+        var arr_sort= this.props.news.sort(function (a, b) {
+            return b.views - a.views;
+        });
+        return (
+            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div className="thumbnail row2">
                     <div className="caption">
-                        <b>Lập trình React</b>
-                        <p><i className="detail">20/10/2017, 203 lượt xem, 30 lượt thích</i></p>
+                        <h3>Bài viết xem nhiều nhất</h3>
                     </div>
-                </div>
-                <div className="thumbnail rowinput thumbnailme">
-                    <div className="caption">
-                        <b>Lập trình React</b>
-                        <p><i className="detail">20/10/2017, 203 lượt xem, 30 lượt thích</i></p>
-
-                    </div>
-                </div>
-                <div className="thumbnail rowinput thumbnailme">
-                    <div className="caption">
-                        <b>Lập trình React</b>
-                        <p><i className="detail">20/10/2017, 203 lượt xem, 30 lượt thích</i></p>
-                    </div>
-                </div>
-                <div className="thumbnail rowinput thumbnailme">
-                    <div className="caption">
-                        <b>Danhtan</b>
-                        <p>
-                            Vui nhỉ
-                        </p>
-                    </div>
-                </div>
-                <div className="thumbnail rowinput thumbnailme">
-                    <div className="caption">
-                        <b>Tinh phan</b>
-                        <p>
-                            =))
-                        </p>
-                    </div>
-                </div>
-                <div className="thumbnail rowinput thumbnailme">
-                    <div className="caption">
-                        <b>Lập trình React</b>
-                        <p><i className="detail">20/10/2017, 203 lượt xem, 30 lượt thích</i></p>
-                    </div>
-                </div>
-                <div className="thumbnail rowinput thumbnailme">
-                    <div className="caption">
-                        <b>Danhtan</b>
-                        <p>
-                            Vui nhỉ
-                        </p>
-                    </div>
-                </div>
-                <div className="thumbnail rowinput thumbnailme">
-                    <div className="caption">
-                        <b>Tinh phan</b>
-                        <p>
-                            =))
-                        </p>
-                    </div>
-                </div>
-                <div className="thumbnail rowinput thumbnailme">
-                    <div className="caption">
-                        <b>Lập trình React</b>
-                        <p><i className="detail">20/10/2017, 203 lượt xem, 30 lượt thích</i></p>
-                    </div>
-                </div>
-                <div className="thumbnail rowinput thumbnailme">
-                    <div className="caption">
-                        <b>Danhtan</b>
-                        <p>
-                            Vui nhỉ
-                        </p>
-                    </div>
-                </div>
-                <div className="thumbnail rowinput thumbnailme">
-                    <div className="caption">
-                        <b>Tinh phan</b>
-                        <p>
-                            =))
-                        </p>
-                    </div>
+                    { arr_sort.map((item) => {
+                        return  <ItemNewsHot 
+                                    key={uuid()}
+                                    title={item.title}
+                                    date={item.date}
+                                    views={item.views}
+                                    likes={item.likes}
+                                    idNews={item.idnews}
+                                />
+                    })}
                 </div>
             </div>
-        </div>
-    );
-  }
+        );
+    }
 }
 
-export default RecentNewsHot;
+function MapStateToProps(state){
+    return {
+        news: state.reducerNews.news
+    }
+}
+export default connect(MapStateToProps, null)(RecentNewsHot);

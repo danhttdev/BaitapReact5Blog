@@ -7,9 +7,10 @@ class CardAccount extends Component {
             <div className="thumbnail row2">
                 <legend>Danh tan</legend>
                 <img src="img/male.png" className="img-responsive"/>
-                <label htmlFor="">Tên: </label><i>Danh</i><br />
-                <label htmlFor="">Địa chỉ: </label><i>123 Ngô quyền</i><br />
-                <label htmlFor="">SĐT: </label><i>0114353442</i>
+                <label htmlFor="">Tên: </label><i>{this.props.fullname}</i><br />
+                <label htmlFor="">Địa chỉ: </label><i>{this.props.address}</i><br />
+                <label htmlFor="">SĐT: </label><i>{this.props.phone}</i><br />
+                <label htmlFor="">Giới tính: </label><i>{this.props.gender?"Nam":"Nữ"}</i><br />
             </div>
         </div>
     );

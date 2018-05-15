@@ -70,18 +70,18 @@
 
 import React, { Component } from 'react';
 import Main from './Main';
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import Navigation from './Navigation';
-import { at_account_login } from '../actions/actionAccount';
-import { atx_getdata  } from '../actions/actionCommon';
+// import { at_account_login } from '../actions/actionAccount';
+// import { atx_getdata  } from '../actions/actionCommon';
 
 class Container extends Component {
-  componentWillMount(){
-    if (localStorage.getItem('account') !== null){
-      this.props.at_account_login(JSON.parse(localStorage.getItem('account')));
-    }
-    this.props.atx_getdata();
-  }
+  // componentWillMount(){
+  //   if (localStorage.getItem('account') !== null){
+  //     this.props.at_account_login(JSON.parse(localStorage.getItem('account')));
+  //   }
+  //   this.props.atx_getdata();
+  // }
   render() {
     return (
       <div>
@@ -91,9 +91,10 @@ class Container extends Component {
     );
   }
 }
-const MapDispatchToProps = {
-  at_account_login,
-  atx_getdata
-}
+// const MapDispatchToProps = {
+//   at_account_login,
+//   atx_getdata
+// }
 
-export default connect(null, MapDispatchToProps)(Container);
+// export default connect(null, MapDispatchToProps)(Container);
+export default Container;

@@ -22,9 +22,10 @@ class FormAddNews extends Component {
     }
     onSubmit= (e) => {
         e.preventDefault();
+        this.onCancel();
         this.props.atx_news_add({   iduser: parseInt(this.props.iduser,10),
                                     title:this.state.title,
-                                    content:this.state.content, 
+                                    content:'<pre>'.concat(this.state.content).concat('</pre>'), 
                                     date:getDate(), 
                                     fullname:this.props.fullname});
        

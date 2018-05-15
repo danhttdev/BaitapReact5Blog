@@ -7,11 +7,11 @@ body {
     overflow-x: hidden;
 }
 .rowpost {
-    /* box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 25px 0 rgba(0, 0, 0, 0.19); */
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 25px 0 rgba(0, 0, 0, 0.19);
 }
 .row2 {
     position: relative;
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19); */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
 }
 .row3 {
     width: 100%;
@@ -29,11 +29,11 @@ body {
     position: absolute;
     top:10px;
     right: 10px;
-    color: red;
-    padding: 2px 5px;
+    color: rgb(229, 141, 141);
+    padding: 1px 5px;
     font-weight: bold;
-    border: 1px solid gray;
-    border-radius: 2px;
+    /* border: 1px solid gray; */
+    /* border-radius: 2px; */
 }
 .btndelete:hover {
     background-color: red;
@@ -43,10 +43,10 @@ body {
     top:10px;
     right: 40px;
     color: rgb(90, 220, 47);
-    padding: 2px 5px;
+    padding: 1px 5px;
     font-weight: bold;
-    border: 1px solid gray;
-    border-radius: 2px;
+    /* border: 1px solid gray; */
+    /* border-radius: 2px; */
 }
 .btnedit:hover {
     background-color: rgb(255, 153, 0);
@@ -139,4 +139,16 @@ body {
     cursor: pointer;
     background-color: rgb(192, 244, 164);
     
+}
+
+a:hover {
+    text-decoration: none;
+}
+.btn-primary {
+    background-color:#3c6376cf;
+}
+
+.btn-cancel-cmt {
+    /* float: right; */
+    margin-top: 3px;
 }

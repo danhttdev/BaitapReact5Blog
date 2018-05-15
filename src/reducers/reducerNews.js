@@ -13,7 +13,6 @@ import {
 export default function reducer(state = initialStateNews, action) {
     switch (action.type) { 
         case NEWS_ADD:
-            const arr=[...state.news,{...action.payload.news}]
             return {
                 ...state,
                 news: [...state.news, {...action.payload.news}]

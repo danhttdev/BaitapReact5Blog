@@ -79,31 +79,18 @@ export function atx_login(username, password, cb_success) {
 
 export function atx_signup(userinfo,cb_success) {
     return (dispatch, getStore) => {
-        console.log("nhay");
-        console.log(userinfo);
         if (getStore().reducerCommon.isPermit){
             dispatch(at_common_toggle_permit());
             let link=`${HOST}`;
-            // let info ={ 
-            //     gender:userinfo.gender,
-            //     address:userinfo.address,
-            //     fullname:userinfo.fullname,
-            //     password:userinfo.password,
-            //     phone:userinfo.phone,
-            //     username:userinfo.username
-            // };
-            // console.log(info);
             axios.post(link, userinfo)
             .then((res)=> {
                 dispatch(at_common_toggle_permit());
                 if (res.data.trim() === SIGNUP_COMPLETED) {
-                    console.log(res);
                     cb_success();
                 }
                 else {
                     alert(res.data);
                 }
-                console.log("nhay 3");
             }).catch(error => {
                 dispatch(at_common_toggle_permit());
             });

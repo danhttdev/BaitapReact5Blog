@@ -5,11 +5,17 @@ const uuid = require('uuid');
 
 class ListItemNews extends Component {
   render() {
-    const arr = [...this.props.news].reverse();
+    var arr_sort= this.props.news.sort(function (a, b) {
+        var nameA = a.date.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.date.toUpperCase(); // ignore upper and lowercase
+        if (nameA > nameB) return -1;
+        if (nameA < nameB) return 1; return 0;
+      });
+
     return (
         <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
             {
-                arr.map((item) => {
+                arr_sort.map((item) => {
                     return <ItemNews 
                         key={uuid()}
                         idNews= { item.idnews}

@@ -7,7 +7,7 @@ class Signup extends Component {
         return (
             <div>
                 <p className='text-center'>Chào mừng bạn đến với trang đăng kí, hãy khám phá bây giờ.</p>
-                <FormSignup />
+                <FormSignup history2={this.props.history}/>
             </div>
         );
     }

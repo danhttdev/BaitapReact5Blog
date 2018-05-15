@@ -5,6 +5,8 @@ import Login from './main/Login';
 import Signup from './main/Signup';
 import NewsLatest from './main/NewsLatest';
 import Contact from './main/Contact';
+import FullNews from './main/FullNews';
+import Edit from './main/Edit';
 
 class Main extends Component {
 
@@ -16,6 +18,12 @@ class Main extends Component {
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/newslatest" component={NewsLatest} />
                 <Route exact path="/contact" component={Contact} />
+                <Route path="/fullnews" component={FullNews} />
+                <Route path="/edit" component={Edit} />
+                {/* <Route exact path="/fullnews/1" component={FullNews} />
+                <Route exact path="/fullnews/2" component={FullNews} />
+                <Route exact path="/fullnews/3" component={FullNews} />
+                <Route exact path="/fullnews/4" component={FullNews} /> */}
             </div>
         );
     }
