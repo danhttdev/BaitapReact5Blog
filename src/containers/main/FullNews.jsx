@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 
 import { 
     atx_news_get_a_news, 
+    atx_news_views
 } from '../../actions/actionNews';
 import {
     atx_getdata,
@@ -24,16 +25,11 @@ class FullNews extends Component {
         }
     }
     componentWillMount(){
-        console.log("islOgin: "+ this.props.isLogin);
         const account = JSON.parse(localStorage.getItem('account'));
-        console.log( account);
         if ( account !== null ){
-            console.log("nhay vao");
-            //this.props.at_account_set_login_true();
             this.props.at_account_login(JSON.parse(localStorage.getItem('account')));
         }
         else {
-            console.log("eeoooe");
             this.props.at_account_set_login_false();
         }
         const idindex = window.location.pathname.substring(10);
@@ -51,15 +47,17 @@ class FullNews extends Component {
         }
         else {
             const cb = (itemnews) => {
-                console.log("islOgin5: "+ this.props.isLogin);
                 this.setState({
                     item_news:{...itemnews}
                 })
-                console.log("islOgin3: "+ this.props.isLogin);
             }
-            console.log("islOgin1: "+ this.props.isLogin);
             this.props.atx_news_get_a_news(idindex, cb);
         }
+
+        const view = {idnewsView: idindex};
+        const cb = (e) => {
+        }
+        this.props.atx_news_views(view, cb);
     }
     render() {
         return (
@@ -99,7 +97,8 @@ const MapDispatchToProps = {
     atx_getdata,
     at_account_set_login_true,
     at_account_login,
-    at_account_set_login_false
+    at_account_set_login_false,
+    atx_news_views
     
 }
 

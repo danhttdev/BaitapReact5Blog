@@ -10,7 +10,7 @@ class RecentNewsHot extends Component {
         });
         return (
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div className="thumbnail row2">
+                <div className="thumbnail row2 news-view-est">
                     <div className="caption">
                         <h3>Bài viết xem nhiều nhất</h3>
                     </div>
@@ -20,8 +20,9 @@ class RecentNewsHot extends Component {
                                     title={item.title}
                                     date={item.date}
                                     views={item.views}
-                                    likes={item.likes}
+                                    likes={item.arrLikes.length}
                                     idNews={item.idnews}
+                                    comments={item.arrComments.length}
                                 />
                     })}
                 </div>

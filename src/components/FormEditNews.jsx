@@ -88,7 +88,7 @@ class FormEditNews extends Component {
                                     <label htmlFor="">Nội dung</label>
                                     <textarea 
                                         name="content"
-                                        rows={5} 
+                                        rows={15} 
                                         type="text" 
                                         className="form-control" 
                                         id="" 

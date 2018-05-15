@@ -13,6 +13,12 @@ body {
     position: relative;
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19); */
 }
+.row2:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.rowpost:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+}
 .row3 {
     width: 100%;
     /* -moz-box-shadow:    inset 0 0 4px #3e363654;
@@ -133,7 +139,8 @@ body {
 }
 
 .thumbnailme:hover {
-    background-color: #4646463a;
+    /* background-color: #369338; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 .btn-num-like:hover {
@@ -164,4 +171,33 @@ a:hover {
     white-space: -moz-pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word;
+    padding-right: 30px;
+    
+    /* text-align: justify; */
+
+    /* white-space: pre-line; */
+}
+.full-news::first-letter {
+    font: bold italic 3em / .5 serif;
+    font-style: italic;
+    color: #607d8b; 
+    float: left;
+    margin: 0.2em 0.25em .01em 0;
+}
+.navbar {
+    border-radius: 0;
+}
+/* .news-view-est {
+    border: 1px solid green;
+} */
+
+.pheader {
+    font: bold 1.6em serif;
+    font-style: italic;
+    color: #673ab7; 
+}
+.pheader2 {
+    font: bold 1.4em serif;
+    font-style: italic;
+    color: #673ab7; 
 }

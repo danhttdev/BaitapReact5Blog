@@ -6,12 +6,14 @@ import {
     // at_news_toggle_like,
     atx_news_delete,
     atx_news_like,
-    atx_news_unlike
+    atx_news_unlike,
+    atx_news_views
 } from '../actions/actionNews';
 import { at_account_login } from '../actions/actionAccount';
 import ItemLike from '../components/ItemLike';
 import FormItemPostComment from '../components/FormItemPostComment';
 import { sortDate, getDate } from '../function'
+import { Link } from 'react-router-dom'
 
 const uuid = require('uuid');
 
@@ -53,6 +55,9 @@ class ItemNewsFull extends Component {
                 const unlike = { idnewsForUnlike: a.idlike , idnews:a.idnews};
                 const cb = (e) => {
                     console.log(e);
+                    this.setState({
+                        isLike: !this.state.isLike
+                    });  
                 }
                 this.props.atx_news_unlike(unlike, cb);
             }
@@ -61,13 +66,16 @@ class ItemNewsFull extends Component {
                 const like = {idnewsForLike:this.props.idNews, iduser:this.props.userlogin.id, date:getDate(), fullname: this.props.userlogin?this.props.userlogin.fullname:''};
                 const cb = (e) => {
                     console.log('respond:' );
+                    this.setState({
+                        isLike: !this.state.isLike
+                    });  
                     console.log(e);
                 }
                 this.props.atx_news_like(like, cb);
             }
-            this.setState({
-                isLike: !this.state.isLike
-            });       
+            // this.setState({
+            //     isLike: !this.state.isLike
+            // });       
         }
        
     }
@@ -88,22 +96,19 @@ class ItemNewsFull extends Component {
             arrComments: this.props.arrComments,
             arrLikes: this.props.arrLikes
         })
-        console.log("sate of me");
-        console.log(this.state);
-        console.log("prop of me");
-        console.log(this.props);
+
+
+       
+
+
     }
     onDelete = () => {
-        console.log("delete");
-        console.log(this.props.idNews);
         this.props.atx_news_delete({idDelete:this.props.idNews});
         this.props.history.push('/');
     }
     onEdit = () => {
-        console.log("edit");
     }
     fullNews = () => {
-        console.log('xem them');
     }
     // doan nay lam isLogin bi true;
     // componentWillMount(){
@@ -111,8 +116,8 @@ class ItemNewsFull extends Component {
     //     //this.props.at_account_login(JSON.parse(localStorage.getItem('account')));
     // }
     render() {
-        console.log("sate of me render");
-        console.log(this.state);
+     
+
         let cmt = "";
         let edt = "";
         let numLikesClick='';
@@ -147,8 +152,8 @@ class ItemNewsFull extends Component {
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
                     <div className="thumbnail row2">
                         <div className="caption">
-                            <h3>{ this.props.title }</h3>
-                            <b className="detail">{ this.props.fullname }</b><span className="detail"> đã đăng vào </span><i className="detail">{ this.props.date } có {this.props.views} lượt xem</i>
+                            <h3 className='pheader'>{ this.props.title }</h3>
+                            <b className="detail">{ this.props.fullname }</b><span className="detail"> đã đăng vào </span><i className="detail">{ this.props.date } có <b> {this.props.views} </b>lượt xem</i>
                             <p className='full-news'>
                             { this.props.content }
                             </p>
@@ -159,8 +164,11 @@ class ItemNewsFull extends Component {
                                 {
                                     this.props.idlogin===this.props.iduser?<a  className="btndelete" onClick={this.onDelete}>X</a>:''
                                 }
-                                {
+                                {/* {
                                     this.props.idlogin===this.props.iduser?<a  className="btnedit" onClick={this.onEdit}>..</a>:''
+                                } */}
+                                {
+                                    this.props.idlogin===this.props.iduser?<Link to={'/edit/'+this.props.idNews} className="btnedit" >..</Link>:''
                                 }
                                 <a  className="btn btncomment" onClick={ this.onClickComment }> </a>
                                 <b>{ this.props.comments }</b>
@@ -189,6 +197,7 @@ const MapDispatchToProps = {
     atx_news_delete,
     at_account_login,
     atx_news_like,
-    atx_news_unlike
+    atx_news_unlike,
+    atx_news_views
 }
 export default connect(MapStateToProps, MapDispatchToProps)(ItemNewsFull);

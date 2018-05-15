@@ -47,6 +47,9 @@ class ItemNews extends Component {
     onClickLike = () => {
         if ( this.props.islogin){
             const cb = (e) => {
+                this.setState({
+                    isLike: !this.state.isLike
+                });  
             }
             if (this.state.isLike){
                 const a= this.props.arrLikes.filter((item) => {
@@ -60,9 +63,9 @@ class ItemNews extends Component {
                 const like = {idnewsForLike:this.props.idNews, iduser:this.props.userlogin.id, date:getDate(), fullname: this.props.userlogin?this.props.userlogin.fullname:''};
                 this.props.atx_news_like(like, cb);
             }
-            this.setState({
-                isLike: !this.state.isLike
-            });               
+            // this.setState({
+            //     isLike: !this.state.isLike
+            // });               
         }
         else {
             alert("Vui long dang nhap");
@@ -93,6 +96,9 @@ class ItemNews extends Component {
     fullNews = () => {
         console.log('xem them');
     }
+    // onView = () => {
+    //     console.log("views");
+    // }
     render() {
         let cmt = "";
         let edt = "";
@@ -133,17 +139,17 @@ class ItemNews extends Component {
                     <h5>views ={this.props.views}</h5>
                     <h5>like ={this.props.likes}</h5> */}
 
-                    <h3>{ this.props.title }</h3>
+                    <h3 className='pheader2'>{ this.props.title }</h3>
                     <Link className="detail" to={'/contact/'+this.props.iduser} >{ this.props.fullname }</Link>
                     
-                    <span className="detail"> đã đăng vào </span><i className="detail">{ this.props.date }  có {this.props.views} lượt xem</i>
+                    <span className="detail"> đã đăng vào </span><i className="detail">{ this.props.date }  có <b>{this.props.views}</b> lượt xem</i>
                     <p>
-                    { this.props.content.length>250?this.props.content.substring(0,150).concat('......'):this.props.content }
+                    { this.props.content.length>250?this.props.content.substring(0,250).concat('......'):this.props.content }
                     </p>
                     {/* <button className="btn btn-default " onClick={this.fullNews}>Xem them </button> */}
                     {/* <a className="btn btn-default " href={'/fullnews/'+this.props.idNews}>Xem thêm </a> */}
                     {/* <Link to={'/fullnews/'+this.props.idNews} className='navbar-brand'>Xem thêm </Link> */}
-                    <button className="btn btn-default " ><Link to={'/fullnews/'+this.props.idNews}>Xem thêm </Link></button>
+                    <button className="btn btn-default " ><Link to={'/fullnews/'+this.props.idNews} >Xem thêm </Link></button>
 
                     <hr/>
                     <p>
@@ -153,7 +159,7 @@ class ItemNews extends Component {
                             this.props.idlogin===this.props.iduser?<a  className="btndelete" onClick={this.onDelete}>X</a>:''
                         }
                         {
-                            this.props.idlogin===this.props.iduser?<button className="btnedit" onClick={this.onEdit}><Link to={'/edit/'+this.props.idNews}>..</Link></button>:''
+                            this.props.idlogin===this.props.iduser?<span className="btnedit" onClick={this.onEdit}><Link to={'/edit/'+this.props.idNews}>..</Link></span>:''
                         }
                         <a  className="btn btncomment" onClick={ this.onClickComment }> </a>
                         <b>{ this.props.comments }</b>
