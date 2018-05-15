@@ -17,7 +17,7 @@ class Main extends Component {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/newslatest" component={NewsLatest} />
-                <Route exact path="/contact" component={Contact} />
+                <Route path="/contact" component={Contact} />
                 <Route path="/fullnews" component={FullNews} />
                 <Route path="/edit" component={Edit} />
                 {/* <Route exact path="/fullnews/1" component={FullNews} />

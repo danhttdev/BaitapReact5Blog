@@ -134,7 +134,9 @@ class ItemNews extends Component {
                     <h5>like ={this.props.likes}</h5> */}
 
                     <h3>{ this.props.title }</h3>
-                    <b className="detail">{ this.props.fullname }</b><span className="detail"> đã đăng vào </span><i className="detail">{ this.props.date }  có {this.props.views} lượt xem</i>
+                    <Link className="detail" to={'/contact/'+this.props.iduser} >{ this.props.fullname }</Link>
+                    
+                    <span className="detail"> đã đăng vào </span><i className="detail">{ this.props.date }  có {this.props.views} lượt xem</i>
                     <p>
                     { this.props.content.length>250?this.props.content.substring(0,150).concat('......'):this.props.content }
                     </p>

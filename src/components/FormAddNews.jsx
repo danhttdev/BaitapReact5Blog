@@ -25,7 +25,7 @@ class FormAddNews extends Component {
         this.onCancel();
         this.props.atx_news_add({   iduser: parseInt(this.props.iduser,10),
                                     title:this.state.title,
-                                    content:'<pre>'.concat(this.state.content).concat('</pre>'), 
+                                    content:this.state.content, 
                                     date:getDate(), 
                                     fullname:this.props.fullname});
        
@@ -35,7 +35,6 @@ class FormAddNews extends Component {
             title:'',
             content:''
         })
-        console.log('eeed');
     }
     render() {
     return (

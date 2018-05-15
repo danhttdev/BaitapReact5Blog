@@ -7,11 +7,11 @@ body {
     overflow-x: hidden;
 }
 .rowpost {
-    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 25px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 25px 0 rgba(0, 0, 0, 0.19); */
 }
 .row2 {
     position: relative;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19); */
 }
 .row3 {
     width: 100%;
@@ -97,7 +97,8 @@ body {
 } */
 
 .img-responsive {
-    width: 70%;
+    width: 15%;
+    float: right;
 }
 .btn-nav {
     margin-left: 5px;
@@ -151,4 +152,16 @@ a:hover {
 .btn-cancel-cmt {
     /* float: right; */
     margin-top: 3px;
+}
+.card-account:hover {
+    background-color: darksalmon;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.full-news {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
 }

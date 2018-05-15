@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ItemComment from '../components/ItemComment';
 import { connect } from "react-redux";
 import {
-    at_news_toggle_like,
+    // at_news_toggle_like,
     atx_news_delete,
     atx_news_like,
     atx_news_unlike
@@ -24,6 +24,8 @@ class ItemNewsFull extends Component {
             isCommentClick: false,
             isNumLikesClick:false,
             isLike: false,
+            arrLikes:[],
+            arrComments:[]
         }
     }
     onClickComment = () => {
@@ -41,8 +43,7 @@ class ItemNewsFull extends Component {
             alert(" Vui long dang nhap");
         }
         else {
-            const cb = (e) => {
-            }
+            
             if (this.state.isLike){
                 console.log("unlike");
                 const a= this.props.arrLikes.filter((item) => {
@@ -50,11 +51,18 @@ class ItemNewsFull extends Component {
                     return false;
                 })[0];
                 const unlike = { idnewsForUnlike: a.idlike , idnews:a.idnews};
+                const cb = (e) => {
+                    console.log(e);
+                }
                 this.props.atx_news_unlike(unlike, cb);
             }
             else {
                 console.log("like");
                 const like = {idnewsForLike:this.props.idNews, iduser:this.props.userlogin.id, date:getDate(), fullname: this.props.userlogin?this.props.userlogin.fullname:''};
+                const cb = (e) => {
+                    console.log('respond:' );
+                    console.log(e);
+                }
                 this.props.atx_news_like(like, cb);
             }
             this.setState({
@@ -76,6 +84,14 @@ class ItemNewsFull extends Component {
                 })
             }
         });
+        this.setState({
+            arrComments: this.props.arrComments,
+            arrLikes: this.props.arrLikes
+        })
+        console.log("sate of me");
+        console.log(this.state);
+        console.log("prop of me");
+        console.log(this.props);
     }
     onDelete = () => {
         console.log("delete");
@@ -95,6 +111,8 @@ class ItemNewsFull extends Component {
     //     //this.props.at_account_login(JSON.parse(localStorage.getItem('account')));
     // }
     render() {
+        console.log("sate of me render");
+        console.log(this.state);
         let cmt = "";
         let edt = "";
         let numLikesClick='';
@@ -131,7 +149,7 @@ class ItemNewsFull extends Component {
                         <div className="caption">
                             <h3>{ this.props.title }</h3>
                             <b className="detail">{ this.props.fullname }</b><span className="detail"> đã đăng vào </span><i className="detail">{ this.props.date } có {this.props.views} lượt xem</i>
-                            <p>
+                            <p className='full-news'>
                             { this.props.content }
                             </p>
                             <hr/>
@@ -167,7 +185,7 @@ function MapStateToProps(state){
 }
 
 const MapDispatchToProps = {
-    at_news_toggle_like,
+    // at_news_toggle_like,
     atx_news_delete,
     at_account_login,
     atx_news_like,

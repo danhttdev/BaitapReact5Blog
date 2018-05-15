@@ -10,6 +10,7 @@ import {
 
 export default function reducerAccount(state = initialStateAccount, action) {
     switch (action.type) { 
+        
         case ACCOUNT_ADD_ARR:
             return {
                 ...state,

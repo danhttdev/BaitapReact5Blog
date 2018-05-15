@@ -30,27 +30,27 @@ export const initialStateAccount = {
       phone: "45234634",
       gender: 1
     },
-    {
-      id:'phung',
-      fullname: 'nguyen van phung',
-      address:'32 Ngo Quyen',
-      phone: "45234634",
-      gender: 1
-    },
-    {
-      id:'tinh',
-      fullname: 'Tinh phan',
-      address:'32 Ngo Quyen',
-      phone: "45234634",
-      gender: 1
-    },
-    {
-      id:'huy',
-      fullname: 'Huy Le',
-      address:'32 Ngo Quyen',
-      phone: "45234634",
-      gender: 1
-    },
+    // {
+    //   id:'phung',
+    //   fullname: 'nguyen van phung',
+    //   address:'32 Ngo Quyen',
+    //   phone: "45234634",
+    //   gender: 1
+    // },
+    // {
+    //   id:'tinh',
+    //   fullname: 'Tinh phan',
+    //   address:'32 Ngo Quyen',
+    //   phone: "45234634",
+    //   gender: 1
+    // },
+    // {
+    //   id:'huy',
+    //   fullname: 'Huy Le',
+    //   address:'32 Ngo Quyen',
+    //   phone: "45234634",
+    //   gender: 1
+    // },
   ],
   isLogin:false,
 };
