@@ -5,6 +5,7 @@ import {
     ACCOUNT_ADD_ARR,
     ACCOUNT_SET_LOGIN_TRUE,
     initialStateAccount,
+    ACCOUNT_SET_LOGIN_FALSE,
 }   from '../constants/constants';
 
 export default function reducerAccount(state = initialStateAccount, action) {
@@ -34,6 +35,12 @@ export default function reducerAccount(state = initialStateAccount, action) {
             return {
                 ...state,
                 isLogin: true
+            }
+        case ACCOUNT_SET_LOGIN_FALSE:
+            console.log("llll");
+            return {
+                ...state,
+                isLogin: false
             }
         default:
             return state; 

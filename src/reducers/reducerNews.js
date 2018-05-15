@@ -7,7 +7,8 @@ import {
     NEWS_DELETE_COMMENT,
     NEWS_EDIT,
     NEWS_UNLIKE,
-    NEWS_TOGGLE_LIKE,
+    // NEWS_TOGGLE_LIKE,
+    NEWS_LIKE,
 } from "../constants/constants";
 
 export default function reducer(state = initialStateNews, action) {
@@ -28,7 +29,7 @@ export default function reducer(state = initialStateNews, action) {
                 ...state,
                 news: state.news.map((item) => {
                     const it = item;
-                    if (item.idnews === action.payload.idcomment) it.arrComments.push(action.payload.comment);
+                    if (item.idnews === action.payload.comment.idnews) it.arrComments.push(action.payload.comment);
                     return it;
                 })
                 
@@ -65,36 +66,61 @@ export default function reducer(state = initialStateNews, action) {
                     return item; 
                 })                
             }        
-        case NEWS_TOGGLE_LIKE:
-            console.log("add");
-            return {
-                news: state.news.map((item) => {
-                    const it = {...item};
-                    if ( item.idnews === action.payload.idnews ){
-                        const arrl = [...item.arrLikes];
-                        let check = true;
-                        item.arrLikes.forEach((item2, index) => {
-                            if (item2.iduser === action.payload.iduser) {
-                                arrl.splice(index,1);
-                                check = false;
-                            }
-                            if (check) arrl.push({
-                                idlike:action.payload.idlike,
-                                iduser:action.payload.iduser,
-                                date: action.payload.date
-                            })
+        // case NEWS_TOGGLE_LIKE:
+        //     console.log("add");
+        //     return {
+        //         news: state.news.map((item) => {
+        //             const it = {...item};
+        //             if ( item.idnews === action.payload.idnews ){
+        //                 const arrl = [...item.arrLikes];
+        //                 let check = true;
+        //                 item.arrLikes.forEach((item2, index) => {
+        //                     if (item2.iduser === action.payload.iduser) {
+        //                         arrl.splice(index,1);
+        //                         check = false;
+        //                     }
+        //                     if (check) arrl.push({
+        //                         idlike:action.payload.idlike,
+        //                         iduser:action.payload.iduser,
+        //                         date: action.payload.date
+        //                     })
                             
-                        })
-                        it.arrLikes = [...arrl];
-                        return it;
-                    }
-                    return item;
-                })
-            }
+        //                 })
+        //                 it.arrLikes = [...arrl];
+        //                 return it;
+        //             }
+        //             return item;
+        //         })
+        //     }
         case NEWS_UNLIKE:
+            const arr_unlike = state.news.map((item) => {
+                let item2 = {...item};
+                if (item.idnews === action.payload.unlike.idnews){
+                    const arr_2 = item2.arrLikes.filter((itemlike) => {
+                        if (itemlike.idlike === action.payload.unlike.idnewsForUnlike) return false;
+                        return true;
+                    })
+                    item2.arrLikes = [...arr_2];
+                }
+                return item2;
+            })
             return {
-                
-            }          
+                ...state,
+                news: arr_unlike
+            }   
+        case NEWS_LIKE:
+            const arr = state.news.map((item) => {
+                let item2 = {...item};
+                if (item.idnews === action.payload.like.idnews){
+                    item2.arrLikes.push(action.payload.like);
+                }
+                return item2;
+            })
+            return {
+                ...state,
+                news: arr
+
+            }       
         default:
             return state;
     }

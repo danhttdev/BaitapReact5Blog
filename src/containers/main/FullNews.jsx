@@ -8,7 +8,11 @@ import {
 import {
     atx_getdata,
 } from '../../actions/actionCommon';
-import { at_account_set_login_true} from '../../actions/actionAccount';
+import { 
+    at_account_set_login_true,
+    at_account_login,
+    at_account_set_login_false
+} from '../../actions/actionAccount';
 import ItemNewsFull from '../../components/ItemNewsFull';
 
 const uuid = require('uuid');
@@ -20,9 +24,17 @@ class FullNews extends Component {
         }
     }
     componentWillMount(){
+        console.log("islOgin: "+ this.props.isLogin);
         const account = JSON.parse(localStorage.getItem('account'));
+        console.log( account);
         if ( account !== null ){
-            this.props.at_account_set_login_true();
+            console.log("nhay vao");
+            //this.props.at_account_set_login_true();
+            this.props.at_account_login(JSON.parse(localStorage.getItem('account')));
+        }
+        else {
+            console.log("eeoooe");
+            this.props.at_account_set_login_false();
         }
         const idindex = window.location.pathname.substring(10);
         if(!idindex){
@@ -39,10 +51,13 @@ class FullNews extends Component {
         }
         else {
             const cb = (itemnews) => {
+                console.log("islOgin5: "+ this.props.isLogin);
                 this.setState({
                     item_news:{...itemnews}
                 })
+                console.log("islOgin3: "+ this.props.isLogin);
             }
+            console.log("islOgin1: "+ this.props.isLogin);
             this.props.atx_news_get_a_news(idindex, cb);
         }
     }
@@ -75,13 +90,16 @@ class FullNews extends Component {
 function MapStateToProps(state){
     return {
         news: state.reducerNews.news,
-        isLoaded: state.reducerCommon.isLoaded
+        isLoaded: state.reducerCommon.isLoaded,
+        isLogin: state.reducerAccount.isLogin
     }
 }
 const MapDispatchToProps = {
     atx_news_get_a_news,
     atx_getdata,
-    at_account_set_login_true
+    at_account_set_login_true,
+    at_account_login,
+    at_account_set_login_false
     
 }
 

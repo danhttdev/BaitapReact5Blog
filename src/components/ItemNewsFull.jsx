@@ -4,10 +4,15 @@ import ItemComment from '../components/ItemComment';
 import { connect } from "react-redux";
 import {
     at_news_toggle_like,
-    atx_news_delete
+    atx_news_delete,
+    atx_news_like,
+    atx_news_unlike
 } from '../actions/actionNews';
+import { at_account_login } from '../actions/actionAccount';
 import ItemLike from '../components/ItemLike';
 import FormItemPostComment from '../components/FormItemPostComment';
+import { sortDate, getDate } from '../function'
+
 const uuid = require('uuid');
 
 
@@ -32,9 +37,31 @@ class ItemNewsFull extends Component {
         });
     }
     onClickLike = () => {
-        this.setState({
-            isLike: !this.state.isLike
-        });        
+        if ( this.props.islogin === false ){
+            alert(" Vui long dang nhap");
+        }
+        else {
+            const cb = (e) => {
+            }
+            if (this.state.isLike){
+                console.log("unlike");
+                const a= this.props.arrLikes.filter((item) => {
+                    if (item.iduser == this.props.userlogin.id) return true;
+                    return false;
+                })[0];
+                const unlike = { idnewsForUnlike: a.idlike , idnews:a.idnews};
+                this.props.atx_news_unlike(unlike, cb);
+            }
+            else {
+                console.log("like");
+                const like = {idnewsForLike:this.props.idNews, iduser:this.props.userlogin.id, date:getDate(), fullname: this.props.userlogin?this.props.userlogin.fullname:''};
+                this.props.atx_news_like(like, cb);
+            }
+            this.setState({
+                isLike: !this.state.isLike
+            });       
+        }
+       
     }
     onCancelComment = () => {
         this.setState({
@@ -62,6 +89,11 @@ class ItemNewsFull extends Component {
     fullNews = () => {
         console.log('xem them');
     }
+    // doan nay lam isLogin bi true;
+    // componentWillMount(){
+    //     console.log(JSON.parse(localStorage.getItem('account')));
+    //     //this.props.at_account_login(JSON.parse(localStorage.getItem('account')));
+    // }
     render() {
         let cmt = "";
         let edt = "";
@@ -70,10 +102,12 @@ class ItemNewsFull extends Component {
             edt =   <div className="thumbnail">
                         {/* <textarea className="form-control comment" rows="2"></textarea>
                         <a className="btn btn-default">Bình luận</a> */}
-                        <FormItemPostComment idNews={this.props.idNews} iduser={this.props.userlogin.id} onCommentComplete={this.onClickComment}/>
+                        <FormItemPostComment idNews={this.props.idNews} iduser={this.props.userlogin?this.props.userlogin.id:''} />
                         <a className="btn btn-default btn-cancel-cmt" onClick={this.onCancelComment}>Hủy</a>
                     </div>
-            cmt=this.props.arrComments.map(
+            cmt=this.props.arrComments.sort(
+                sortDate
+            ).map(
                 (item) =>  <ItemComment 
                             key={uuid()}
                             username={ item.fullname }
@@ -127,12 +161,16 @@ class ItemNewsFull extends Component {
 function MapStateToProps(state){
     return {
         idlogin: state.reducerAccount.userlogin?state.reducerAccount.userlogin.id:null,
-        userlogin: state.reducerAccount.userlogin
+        userlogin: state.reducerAccount.userlogin,
+        islogin: state.reducerAccount.isLogin
     }
 }
 
 const MapDispatchToProps = {
     at_news_toggle_like,
-    atx_news_delete
+    atx_news_delete,
+    at_account_login,
+    atx_news_like,
+    atx_news_unlike
 }
 export default connect(MapStateToProps, MapDispatchToProps)(ItemNewsFull);

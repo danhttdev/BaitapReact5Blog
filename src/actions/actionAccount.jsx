@@ -5,6 +5,7 @@ import {
     ACCOUNT_TOGGLE_LOGIN,
     ACCOUNT_ADD_ARR,
     ACCOUNT_SET_LOGIN_TRUE,
+    ACCOUNT_SET_LOGIN_FALSE,
     LOGIN_COMPLETED,
     LOGIN_UNCOMPLETED,
     HOST,
@@ -35,6 +36,13 @@ export function at_account_set_login_true() {
         type: ACCOUNT_SET_LOGIN_TRUE,
     }
 }
+
+export function at_account_set_login_false() {
+    return {
+        type: ACCOUNT_SET_LOGIN_FALSE,
+    }
+}
+
 export function at_account_toggle_login() {
     return {
         type: ACCOUNT_TOGGLE_LOGIN,

@@ -11,7 +11,7 @@ export const initialStateCommon = {
 }
 export const initialStateAccount = {
   userlogin:{
-    idlogin: "danh",
+    idlogin: "",
     username: "",
     password: ""
   },
@@ -313,6 +313,7 @@ export const initialStateNews = {
 export const ACCOUNT_TOGGLE_LOGIN       = 'ACCOUNT_TOGGLE_LOGIN';
 export const ACCOUNT_LOGIN              = 'ACCOUNT_LOGIN';
 export const ACCOUNT_SET_LOGIN_TRUE     = 'ACCOUNT_SET_LOGIN_TRUE';
+export const ACCOUNT_SET_LOGIN_FALSE    = 'ACCOUNT_SET_LOGIN_FALSE';
 export const ACCOUNT_LOGOUT             = 'ACCOUNT_LOGOUT';
 export const ACCOUNT_ADD_ARR            = 'ACCOUNT_ADD_ARR';
 export const NEWS_LIKE                  = 'NEWS_LIKE';

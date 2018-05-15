@@ -3,12 +3,14 @@ import ItemComment from '../../../components/ItemComment';
 import { connect } from "react-redux";
 import {
     at_news_toggle_like,
-    atx_news_delete
+    atx_news_delete,
+    atx_news_like,
+    atx_news_unlike
 } from '../../../actions/actionNews';
 import ItemLike from '../../../components/ItemLike';
 import { Link } from 'react-router-dom'
 import FormItemPostComment from '../../../components/FormItemPostComment';
-import { sortDate } from '../../../function'
+import { sortDate, getDate } from '../../../function'
 
 const uuid = require('uuid');
 
@@ -43,9 +45,30 @@ class ItemNews extends Component {
         });
     }
     onClickLike = () => {
-        this.setState({
-            isLike: !this.state.isLike
-        });        
+        if ( this.props.islogin){
+            const cb = (e) => {
+            }
+            if (this.state.isLike){
+                const a= this.props.arrLikes.filter((item) => {
+                    if (item.iduser == this.props.userlogin.id) return true;
+                    return false;
+                })[0];
+                const unlike = { idnewsForUnlike: a.idlike , idnews:a.idnews};
+                this.props.atx_news_unlike(unlike, cb);
+            }
+            else {
+                const like = {idnewsForLike:this.props.idNews, iduser:this.props.userlogin.id, date:getDate(), fullname: this.props.userlogin?this.props.userlogin.fullname:''};
+                this.props.atx_news_like(like, cb);
+            }
+            this.setState({
+                isLike: !this.state.isLike
+            });               
+        }
+        else {
+            alert("Vui long dang nhap");
+        }
+     
+        
     }
     onCancelComment = () => {
         this.setState({
@@ -62,8 +85,6 @@ class ItemNews extends Component {
         });
     }
     onDelete = () => {
-        console.log("delete");
-        console.log(this.props.idNews);
         this.props.atx_news_delete({idDelete:this.props.idNews});
     }
     onEdit = () => {
@@ -78,7 +99,7 @@ class ItemNews extends Component {
         let numLikesClick='';
         if ( this.state.isCommentClick ) {
             edt =   <div className="thumbnail">
-                        <FormItemPostComment idNews={this.props.idNews} iduser={this.props.userlogin.id} onCommentComplete={this.onClickComment}/>
+                        <FormItemPostComment idNews={this.props.idNews} iduser={this.props.userlogin?this.props.userlogin.id:''}/>
                         <a className="btn btn-default btn-cancel-cmt" onClick={this.onCancelComment}>Hủy</a>
                     </div>
             cmt=this.props.arrComments.sort(
@@ -147,13 +168,16 @@ class ItemNews extends Component {
 function MapStateToProps(state){
     return {
         idlogin: state.reducerAccount.userlogin?state.reducerAccount.userlogin.id:null,
-        userlogin: state.reducerAccount.userlogin
+        userlogin: state.reducerAccount.userlogin,
+        islogin: state.reducerAccount.isLogin,
 
     }
 }
 
 const MapDispatchToProps = {
     at_news_toggle_like,
-    atx_news_delete
+    atx_news_delete,
+    atx_news_like,
+    atx_news_unlike
 }
 export default connect(MapStateToProps, MapDispatchToProps)(ItemNews);

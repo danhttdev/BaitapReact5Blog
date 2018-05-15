@@ -74,11 +74,10 @@ export function at_news_add_arr(arr) {
     }
 }
 
-export function at_news_add_comment(idcomment, comment) {
+export function at_news_add_comment( comment) {
     return {
         type: NEWS_ADD_COMMENT,
         payload: {
-            idcomment,
             comment
         }
     }
@@ -110,14 +109,11 @@ export function at_news_edit(news) {
     }
 }
 
-export function at_news_like(idnews,iduser,idlike,date) {
+export function at_news_like(like) {
     return {
         type: NEWS_LIKE,
         payload: {
-            idnews,
-            iduser,
-            idlike,
-            date
+            like
         }
     }
 }
@@ -133,12 +129,11 @@ export function at_news_toggle_like(idnews,iduser,idlike,date) {
         }
     }
 }
-export function at_news_unlike(idnews,iduser) {
+export function at_news_unlike(unlike) {
     return {
         type: NEWS_UNLIKE,
         payload: {
-            idnews,
-            iduser
+            unlike
         }
     }
 }
@@ -148,11 +143,14 @@ export function atx_news_get_a_news(id ,cb){
             dispatch(at_common_toggle_permit());
             let link=`${HOST}`;
             const a = {idNewGetFull:parseInt(id, 10)};
+            console.log("islogin 4: "+ getStore().reducerAccount.isLogin);
             axios.post(link, a)
             .then((res)=> {
                 dispatch(at_common_toggle_permit());
                 if (res.data) {
+                    console.log("islogin 4: "+ getStore().reducerAccount.isLogin);
                     cb(res.data.news);
+
                 }
                 else {
                 }
@@ -211,21 +209,83 @@ export function atx_news_edit_a_news(news ,cb){
 }
 
 export function atx_news_add_comment(comment ,cb){
-    console.log("add comment");
-    console.log(comment);
     return (dispatch, getStore) => {
         if (getStore().reducerCommon.isPermit){
             dispatch(at_common_toggle_permit());
             let link=`${HOST}`;
-            //const a = {idNewGetFull:parseInt(id, 10)};
-            console.log("bbbbb");
 
             axios.post(link, comment)
             .then((res)=> {
-                console.log("cccccc");
 
                 dispatch(at_common_toggle_permit());
                 if (res.data) {
+                    const cmt = {
+                        idcomment: res.data.id,
+                        idnews: comment.idNewsComment,
+                        iduser:comment.iduser,
+                        content: comment.content,
+                        date: comment.date,
+                        fullname: comment.fullname
+                    }
+
+                    cb(cmt);
+                    dispatch(at_news_add_comment(cmt));
+                }
+                else {
+                }
+            }).catch(error => {
+                dispatch(at_common_toggle_permit());
+            });
+        }
+    }
+}
+
+export function atx_news_like(like ,cb){
+    console.log("like action");
+    return (dispatch, getStore) => {
+        if (getStore().reducerCommon.isPermit){
+            dispatch(at_common_toggle_permit());
+            let link=`${HOST}`;
+
+            axios.post(link, like)
+            .then((res)=> {
+
+                dispatch(at_common_toggle_permit());
+                if (res.data) {
+               
+                    const like2 = {
+                        idlike: res.data.id,
+                        iduser: like.iduser,
+                        date: like.date,
+                        fullname: like.fullname,
+                        idnews: like.idnewsForLike
+                    }
+                    console.log(like2);
+                    dispatch(at_news_like(like2));
+                    cb(like2);
+                }
+                else {
+                }
+            }).catch(error => {
+                dispatch(at_common_toggle_permit());
+            });
+        }
+    }
+}
+export function atx_news_unlike(unlike ,cb){
+    console.log("unlike action");
+    return (dispatch, getStore) => {
+        if (getStore().reducerCommon.isPermit){
+            dispatch(at_common_toggle_permit());
+            let link=`${HOST}`;
+
+            axios.post(link, unlike)
+            .then((res)=> {
+
+                dispatch(at_common_toggle_permit());
+                if (res.data) {
+                    dispatch(at_news_unlike(unlike));
+
                     cb(res.data);
                 }
                 else {

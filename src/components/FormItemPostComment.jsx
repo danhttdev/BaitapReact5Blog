@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { getDate } from '../function';
 import { atx_news_add_comment } from '../actions/actionNews';
+import { at_account_login } from '../actions/actionAccount';
 class FormItemPostComment extends Component {
     constructor(props){
         super(props);
@@ -15,18 +16,19 @@ class FormItemPostComment extends Component {
         });
     }
     onComment = () => {
-        const comment = {idNewsComment:this.props.idNews,iduser:this.props.iduser,content:this.state.content,date:getDate()};
-        console.log("iduser:");
-        console.log(comment.iduser);
+        const comment = {idNewsComment:this.props.idNews,iduser:this.props.iduser,content:this.state.content,date:getDate(), fullname: this.props.userlogin?this.props.userlogin.fullname:''};
         const cb = (e) => {
-            console.log(e);
-            this.props.onCommentComplete();
         }
-        if (comment.iduser !== undefined ) this.props.atx_news_add_comment(comment,cb);
+        if (comment.iduser !== undefined  && comment.iduser !== '') this.props.atx_news_add_comment(comment,cb);
         else {
             alert("Vui long dang nhap");
         }
     }
+    // componentWillMount(){
+    //     // at_account_login
+    //     console.log(JSON.parse(localStorage.getItem('account')));
+    //     this.props.at_account_login(JSON.parse(localStorage.getItem('account')));
+    // }
     render() {
         return (
             <div>
@@ -43,16 +45,17 @@ class FormItemPostComment extends Component {
     }
 }
 
-// function MapStateToProps(state){
-//   return {
-//       isLogin: state.reducerAccount.isLogin?true:false,
-//   }
-// }
+function MapStateToProps(state){
+  return {
+      userlogin: state.reducerAccount.userlogin
+  }
+}
 
 // // export default connect(MapStateToProps, null)(Home);
 
 const MapDispatchToProps = {
-    atx_news_add_comment
+    atx_news_add_comment,
+    at_account_login
 }
 
-export default connect(null, MapDispatchToProps)(FormItemPostComment);
+export default connect(MapStateToProps, MapDispatchToProps)(FormItemPostComment);
