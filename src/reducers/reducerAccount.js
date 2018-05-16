@@ -25,6 +25,7 @@ export default function reducerAccount(state = initialStateAccount, action) {
         case ACCOUNT_LOGOUT:
             localStorage.removeItem('account');
             return {
+                ...state,
                 userlogin: null,
                 isLogin: false
             }
@@ -38,7 +39,6 @@ export default function reducerAccount(state = initialStateAccount, action) {
                 isLogin: true
             }
         case ACCOUNT_SET_LOGIN_FALSE:
-            console.log("llll");
             return {
                 ...state,
                 isLogin: false

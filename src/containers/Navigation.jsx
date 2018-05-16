@@ -24,7 +24,7 @@ class Navigation extends Component {
     }
     render() {
         return (
-            <nav className="navbar navbar-inverse">
+            <nav className="navbar navbar-inverse navbar-fixed-top">
                 <div className="container">
                     <div className="navbar-header">
                         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#menu">
@@ -45,13 +45,10 @@ class Navigation extends Component {
                                 <Link to='/contact' className='navbar-brand'>Liên hệ</Link>
                             </li>
                         </ul>
-
                         <div className="navbar-right">
-                        
                             {
-                                this.props.isLogin?<Link to='/'><img className='avatar-female'/>
-                                 {/* Chào {this.state.userlogin===null?'':this.state.userlogin.fullname } */}
-                                 {/* Chao { JSON.parse(localStorage.getItem('userlogin')).fullname} */}
+                                this.props.isLogin?<Link to={'/contact/'+(this.props.userlogin?this.props.userlogin.id:'')}>{this.props.userlogin?<img alt='' className={this.props.userlogin.gender===0?'avatar-female':'avatar-male'}/>:''}
+                                Chào {this.props.userlogin===null?'':this.props.userlogin.fullname }
                                  </Link>
                                 :<Link to='/login' className="btn btn-warning navbar-btn btn-nav">Đăng nhập</Link>
                             }
@@ -69,6 +66,10 @@ class Navigation extends Component {
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 {
                                     this.props.isLogin?<li><a onClick={this.logout}>Đăng xuất</a></li>:''
+                                    
+                                }
+                                {
+                                    this.props.isLogin?<li><Link to='/updateaccount'>Thiết đặt</Link></li>:''
                                     
                                 }
                                 {

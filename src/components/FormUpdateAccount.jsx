@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
-    atx_signup
+    atx_update_account,
+    at_account_logout
 } from '../actions/actionAccount'
 
 import {connect} from 'react-redux';
 
-class FormSignup extends Component {
+class FormUpdateAccount extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -16,6 +17,7 @@ class FormSignup extends Component {
             address:'',
             phone:'',
             gender:1,
+            idAccountUpdate:0
         }
     }
     onChange = (e) => {
@@ -29,12 +31,24 @@ class FormSignup extends Component {
         e.preventDefault();
         if ( this.state.password === this.state.repassword){
             const cb = () => {
+                this.props.at_account_logout();
                 this.props.history2.push("/login");
             }
-            this.props.atx_signup(this.state, cb);
+            this.props.atx_update_account(this.state, cb);
         } else {
             alert("Mật khẩu chưa khớp");
         }
+        console.log(this.state);
+    }
+    componentWillMount(){
+        this.setState({
+            username:this.props.username,
+            fullname:this.props.fullname,
+            address:this.props.address,
+            phone:this.props.phone,
+            gender: this.props.gender,
+            idAccountUpdate:this.props.id
+        })
     }
     render() {
     return (
@@ -44,7 +58,7 @@ class FormSignup extends Component {
                 <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                     <div className="thumbnail row2">
                         <form onSubmit={this.onSubmit}>
-                            <legend>Đăng kí</legend>
+                            <legend>Cập nhật tài khoản</legend>
                             <div className="form-group">
                                 <label htmlFor="">Tên đăng nhập</label>
                                 <input 
@@ -113,7 +127,7 @@ class FormSignup extends Component {
                                 </select>
 
                             </div>
-                            <button type="submit" className="btn btn-primary">ĐĂNG KÍ</button>
+                            <button type="submit" className="btn btn-primary">CẬP NHẬT THONG TIN</button>
                         </form>
                     </div>
                 </div>
@@ -124,7 +138,8 @@ class FormSignup extends Component {
 }
 
 const mapDispatchToProps = {
-    atx_signup
+    atx_update_account,
+    at_account_logout
 }
   
-export default connect(null,mapDispatchToProps)(FormSignup);
+export default connect(null,mapDispatchToProps)(FormUpdateAccount);

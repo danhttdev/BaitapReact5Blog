@@ -7,7 +7,6 @@ import {
     NEWS_DELETE_COMMENT,
     NEWS_EDIT,
     NEWS_UNLIKE,
-    // NEWS_TOGGLE_LIKE,
     NEWS_LIKE,
 } from "../constants/constants";
 
@@ -66,32 +65,6 @@ export default function reducer(state = initialStateNews, action) {
                     return item; 
                 })                
             }        
-        // case NEWS_TOGGLE_LIKE:
-        //     console.log("add");
-        //     return {
-        //         news: state.news.map((item) => {
-        //             const it = {...item};
-        //             if ( item.idnews === action.payload.idnews ){
-        //                 const arrl = [...item.arrLikes];
-        //                 let check = true;
-        //                 item.arrLikes.forEach((item2, index) => {
-        //                     if (item2.iduser === action.payload.iduser) {
-        //                         arrl.splice(index,1);
-        //                         check = false;
-        //                     }
-        //                     if (check) arrl.push({
-        //                         idlike:action.payload.idlike,
-        //                         iduser:action.payload.iduser,
-        //                         date: action.payload.date
-        //                     })
-                            
-        //                 })
-        //                 it.arrLikes = [...arrl];
-        //                 return it;
-        //             }
-        //             return item;
-        //         })
-        //     }
         case NEWS_UNLIKE:
             const arr_unlike = state.news.map((item) => {
                 let item2 = {...item};
@@ -119,7 +92,6 @@ export default function reducer(state = initialStateNews, action) {
             return {
                 ...state,
                 news: arr
-
             }       
         default:
             return state;

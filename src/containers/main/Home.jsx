@@ -28,8 +28,6 @@ function MapStateToProps(state){
   }
 }
 
-// export default connect(MapStateToProps, null)(Home);
-
 const MapDispatchToProps = {
   at_account_login,
   atx_getdata

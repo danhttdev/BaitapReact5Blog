@@ -21,7 +21,8 @@ class FullNews extends Component {
     constructor(props){
         super(props);
         this.state = {
-            item_news:null
+            item_news:null,
+            key:1
         }
     }
     componentWillMount(){
@@ -41,12 +42,15 @@ class FullNews extends Component {
                 if ( item.idnews === parseInt(idindex,10) ) return true;
                 else return false;
             })[0];
+            
             this.setState({
-                item_news:{...item_news2}
+                item_news:{...item_news2},
+                key:0
             })
         }
         else {
             const cb = (itemnews) => {
+                if (!(!!itemnews)) this.props.history.push("/");
                 this.setState({
                     item_news:{...itemnews}
                 })
@@ -78,6 +82,7 @@ class FullNews extends Component {
                                 comments= { this.state.item_news.arrComments.length }
                                 arrLikes={this.state.item_news.arrLikes}
                                 history={this.props.history}
+                                key2={this.state.key}
                             />:''
                 }
             </div>
@@ -99,7 +104,6 @@ const MapDispatchToProps = {
     at_account_login,
     at_account_set_login_false,
     atx_news_views
-    
 }
 
 export default connect(MapStateToProps, MapDispatchToProps)(FullNews);

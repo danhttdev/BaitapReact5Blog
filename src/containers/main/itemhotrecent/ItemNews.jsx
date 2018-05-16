@@ -5,7 +5,9 @@ import {
     at_news_toggle_like,
     atx_news_delete,
     atx_news_like,
-    atx_news_unlike
+    atx_news_unlike,
+    at_news_unlike,
+    at_news_like
 } from '../../../actions/actionNews';
 import ItemLike from '../../../components/ItemLike';
 import { Link } from 'react-router-dom'
@@ -21,19 +23,19 @@ class ItemNews extends Component {
             isCommentClick: false,
             isNumLikesClick:false,
             isLike: false,
-            // content:''
         }
+
+         //////////////////////////////////////////////////////////////
+        //  this.props.arrLikes.forEach(element => {
+        //     if (element.iduser === this.props.idlogin)
+        //         // this.setState({
+        //         //     isLike: true
+        //         // })
+        //         this.state.isLike=true;
+        //     });
+        
+          //////////////////////////////////////////////////////////////
     }
-    // onChange = (e) => {
-    //     console.log(e.target.value);
-    //     this.setState({
-    //         content: e.target.value
-    //     });
-    // }
-    // onComment = () => {
-    //     console.log("fhgfdh");
-    //     console.log(this.state.content);
-    // }
     onClickComment = () => {
         this.setState({
             isCommentClick: !this.state.isCommentClick
@@ -46,38 +48,43 @@ class ItemNews extends Component {
     }
     onClickLike = () => {
         if ( this.props.islogin){
-            const cb = (e) => {
-                this.setState({
-                    isLike: !this.state.isLike
-                });  
-            }
+            
             if (this.state.isLike){
                 const a= this.props.arrLikes.filter((item) => {
-                    if (item.iduser == this.props.userlogin.id) return true;
+                    if (item.iduser === this.props.userlogin.id) return true;
                     return false;
                 })[0];
+                const cb = (e) => {
+                    this.setState({
+                        isLike: !this.state.isLike
+                    }); 
+                    this.props.at_news_unlike(e); 
+                }
                 const unlike = { idnewsForUnlike: a.idlike , idnews:a.idnews};
                 this.props.atx_news_unlike(unlike, cb);
             }
             else {
+                const cb = (e) => {
+                    this.setState({
+                        isLike: !this.state.isLike
+                    });  
+                    this.props.at_news_like(e);
+                }
                 const like = {idnewsForLike:this.props.idNews, iduser:this.props.userlogin.id, date:getDate(), fullname: this.props.userlogin?this.props.userlogin.fullname:''};
                 this.props.atx_news_like(like, cb);
             }
-            // this.setState({
-            //     isLike: !this.state.isLike
-            // });               
         }
         else {
             alert("Vui long dang nhap");
         }
-     
-        
     }
     onCancelComment = () => {
         this.setState({
             isCommentClick: false
         });
     }
+
+     //////////////////////////////////////////////////////////////
     componentWillMount(){
         this.props.arrLikes.forEach(element => {
             if (element.iduser === this.props.idlogin){
@@ -86,19 +93,12 @@ class ItemNews extends Component {
                 })
             }
         });
+        //////////////////////////////////////////////////////////////
     }
     onDelete = () => {
         this.props.atx_news_delete({idDelete:this.props.idNews});
     }
-    onEdit = () => {
-        console.log("edit");
-    }
-    fullNews = () => {
-        console.log('xem them');
-    }
-    // onView = () => {
-    //     console.log("views");
-    // }
+
     render() {
         let cmt = "";
         let edt = "";
@@ -130,27 +130,13 @@ class ItemNews extends Component {
         return (
             <div className="thumbnail row2">
                 <div className="caption">
-                    {/* <h5>idnews ={this.props.idNews}</h5>
-                    <h5>title ={this.props.title}</h5>
-                    <h5>content ={this.props.content}</h5>
-                    <h5>iduser ={this.props.iduser}</h5>
-                    <h5>fullname ={this.props.fullname}</h5>
-                    <h5>date ={this.props.date}</h5>
-                    <h5>views ={this.props.views}</h5>
-                    <h5>like ={this.props.likes}</h5> */}
-
-                    <h3 className='pheader2'>{ this.props.title }</h3>
-                    <Link className="detail" to={'/contact/'+this.props.iduser} >{ this.props.fullname }</Link>
+                    <h3 className='pheader2'><Link to={'/fullnews/'+this.props.idNews} >{ this.props.title }</Link></h3>
                     
-                    <span className="detail"> đã đăng vào </span><i className="detail">{ this.props.date }  có <b>{this.props.views}</b> lượt xem</i>
+                    <p className="text-muted"><Link className="detail" to={'/contact/'+this.props.iduser} >{ this.props.fullname }</Link> <span className="detail"> đã đăng vào </span><i className="detail">{ this.props.date }  có <b>{this.props.views}</b> lượt xem</i></p>
                     <p>
                     { this.props.content.length>250?this.props.content.substring(0,250).concat('......'):this.props.content }
                     </p>
-                    {/* <button className="btn btn-default " onClick={this.fullNews}>Xem them </button> */}
-                    {/* <a className="btn btn-default " href={'/fullnews/'+this.props.idNews}>Xem thêm </a> */}
-                    {/* <Link to={'/fullnews/'+this.props.idNews} className='navbar-brand'>Xem thêm </Link> */}
                     <button className="btn btn-default " ><Link to={'/fullnews/'+this.props.idNews} >Xem thêm </Link></button>
-
                     <hr/>
                     <p>
                         <a  className={ this.state.isLike?"btn btnliked":"btn btnlike"} onClick={ this.onClickLike}> </a>
@@ -186,6 +172,8 @@ const MapDispatchToProps = {
     at_news_toggle_like,
     atx_news_delete,
     atx_news_like,
-    atx_news_unlike
+    atx_news_unlike,
+    at_news_unlike,
+    at_news_like
 }
 export default connect(MapStateToProps, MapDispatchToProps)(ItemNews);

@@ -25,20 +25,11 @@ class FormLogin extends Component {
     onSubmit= (e) => {
         e.preventDefault();
         let cb = (account) => {
-            // localStorage.setItem('username',this.state.username);
-            // localStorage.setItem('password', this.state.password);
-            // localStorage.setItem('idlogin', account.id);
-            // console.log(account);
             localStorage.setItem('account', JSON.stringify(account));
-            const dir = () => {
-                this.props.history2.push('/');
-            }
+            const dir = () =>    this.props.history2.push('/');
             dir();
-            
         }
         this.props.atx_login(this.state.username, this.state.password, cb);
-        //this.props.atx_getdata();
-
     }
     
     render() {

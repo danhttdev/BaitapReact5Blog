@@ -9,7 +9,7 @@ import {
     LOGIN_COMPLETED,
     LOGIN_UNCOMPLETED,
     HOST,
-    SIGNUP_COMPLETED
+    SIGNUP_COMPLETED,
 }   from '../constants/constants';
 
 import {
@@ -68,18 +68,12 @@ export function atx_login(username, password, cb_success) {
             .then((res)=> {
                 dispatch(at_common_toggle_permit());
                 if (res.data.key.trim() === LOGIN_COMPLETED) {
-                    //alert(LOGIN_COMPLETED);
-                    console.log("loginnnn");
-                    console.log(res);
                     dispatch(at_account_set_login_true());
                     dispatch(at_account_login(res.data.account));
                     cb_success(res.data.account);
                 }
-                else {
-                    alert(LOGIN_UNCOMPLETED);
-                }
             }).catch(error => {
-                dispatch(at_common_toggle_permit());
+                alert(LOGIN_UNCOMPLETED);
             });
         }
     }
@@ -98,6 +92,26 @@ export function atx_signup(userinfo,cb_success) {
                 }
                 else {
                     alert(res.data);
+                }
+            }).catch(error => {
+                dispatch(at_common_toggle_permit());
+            });
+        }
+    }
+}
+
+
+
+export function atx_update_account(userinfo,cb_success) {
+    return (dispatch, getStore) => {
+        if (getStore().reducerCommon.isPermit){
+            dispatch(at_common_toggle_permit());
+            let link=`${HOST}`;
+            axios.post(link, userinfo)
+            .then((res)=> {
+                dispatch(at_common_toggle_permit());
+                if (res.data) {
+                    cb_success();
                 }
             }).catch(error => {
                 dispatch(at_common_toggle_permit());

@@ -19,7 +19,6 @@ class NewsLatest extends Component {
         var arr_sort= this.props.news.sort(
             sortDate
         );
-    
         return (
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div className="thumbnail row2">
@@ -37,7 +36,6 @@ class NewsLatest extends Component {
                                     comments={item.arrComments.length}
                                 />
                     })}
-                    
                 </div>
             </div>
         );
@@ -52,6 +50,5 @@ function MapStateToProps(state){
 const MapDispatchToProps = {
     at_account_set_login_true,
     atx_getdata
-    
 }
 export default connect(MapStateToProps, MapDispatchToProps)(NewsLatest);

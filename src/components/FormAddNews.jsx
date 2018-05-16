@@ -28,7 +28,6 @@ class FormAddNews extends Component {
                                     content:this.state.content, 
                                     date:getDate(), 
                                     fullname:this.props.fullname});
-       
     }
     onCancel = () => {
         this.setState({

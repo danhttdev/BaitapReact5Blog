@@ -6,6 +6,9 @@ body {
     overflow: scroll;
     overflow-x: hidden;
 }
+.main {
+    margin-top: 70px;
+}
 .rowpost {
     /* box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 25px 0 rgba(0, 0, 0, 0.19); */
 }
@@ -172,6 +175,7 @@ a:hover {
     white-space: -o-pre-wrap;
     word-wrap: break-word;
     padding-right: 30px;
+    text-indent: 5px;
     
     /* text-align: justify; */
 
@@ -196,8 +200,8 @@ a:hover {
     font-style: italic;
     color: #673ab7; 
 }
-.pheader2 {
-    font: bold 1.4em serif;
+.pheader2 a {
+    font: bold 0.8em serif;
     font-style: italic;
     color: #673ab7; 
 }

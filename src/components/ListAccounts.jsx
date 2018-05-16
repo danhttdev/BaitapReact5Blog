@@ -14,7 +14,6 @@ class ListAccounts extends Component {
                 <CardAccount />
             </div>
         </div> 
-                
     );
   }
 }

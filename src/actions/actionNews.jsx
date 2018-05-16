@@ -36,8 +36,6 @@ export function atx_news_add(news){
                     const news2={...news, idnews: res.data.id, arrLikes:[],arrComments:[],views:0};
                     dispatch(at_news_add(news2));
                 }
-                else {
-                }
             }).catch(error => {
                 dispatch(at_common_toggle_permit());
             });
@@ -54,8 +52,6 @@ export function atx_news_delete(news){
                 dispatch(at_common_toggle_permit());
                 if (res.data) {
                    dispatch(at_news_delete(news.idDelete));
-                }
-                else {
                 }
             }).catch(error => {
                 dispatch(at_common_toggle_permit());
@@ -146,9 +142,6 @@ export function atx_news_get_a_news(id ,cb){
                 dispatch(at_common_toggle_permit());
                 if (res.data) {
                     cb(res.data.news);
-
-                }
-                else {
                 }
             }).catch(error => {
                 dispatch(at_common_toggle_permit());
@@ -169,8 +162,6 @@ export function atx_news_edit_a_news(news ,cb){
                 if (res.data) {
                     cb(res.data);
                 }
-                else {
-                }
             }).catch(error => {
                 dispatch(at_common_toggle_permit());
             });
@@ -183,10 +174,8 @@ export function atx_news_add_comment(comment ,cb){
         if (getStore().reducerCommon.isPermit){
             dispatch(at_common_toggle_permit());
             let link=`${HOST}`;
-
             axios.post(link, comment)
             .then((res)=> {
-
                 dispatch(at_common_toggle_permit());
                 if (res.data) {
                     const cmt = {
@@ -197,11 +186,8 @@ export function atx_news_add_comment(comment ,cb){
                         date: comment.date,
                         fullname: comment.fullname
                     }
-
                     cb(cmt);
                     dispatch(at_news_add_comment(cmt));
-                }
-                else {
                 }
             }).catch(error => {
                 dispatch(at_common_toggle_permit());
@@ -215,13 +201,10 @@ export function atx_news_like(like ,cb){
         if (getStore().reducerCommon.isPermit){
             dispatch(at_common_toggle_permit());
             let link=`${HOST}`;
-
             axios.post(link, like)
             .then((res)=> {
-
                 dispatch(at_common_toggle_permit());
                 if (res.data) {
-               
                     const like2 = {
                         idlike: res.data.id,
                         iduser: like.iduser,
@@ -229,10 +212,7 @@ export function atx_news_like(like ,cb){
                         fullname: like.fullname,
                         idnews: like.idnewsForLike
                     }
-                    dispatch(at_news_like(like2));
                     cb(like2);
-                }
-                else {
                 }
             }).catch(error => {
                 dispatch(at_common_toggle_permit());
@@ -245,17 +225,11 @@ export function atx_news_unlike(unlike ,cb){
         if (getStore().reducerCommon.isPermit){
             dispatch(at_common_toggle_permit());
             let link=`${HOST}`;
-
             axios.post(link, unlike)
             .then((res)=> {
-
                 dispatch(at_common_toggle_permit());
                 if (res.data) {
-                    dispatch(at_news_unlike(unlike));
-
-                    cb(res.data);
-                }
-                else {
+                    cb(unlike);
                 }
             }).catch(error => {
                 dispatch(at_common_toggle_permit());
@@ -270,8 +244,6 @@ export function atx_news_views(view ,cb){
             .then((res)=> {
                 if (res.data) {
                     cb(res.data);
-                }
-                else {
                 }
             }).catch(error => {
             });
