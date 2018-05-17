@@ -22,6 +22,8 @@ class RecentNewsHot extends Component {
                                     views={item.views}
                                     likes={item.arrLikes.length}
                                     idNews={item.idnews}
+                                    fullname={item.fullname}
+                                    iduser={item.iduser}
                                     comments={item.arrComments.length}
                                 />
                     })}

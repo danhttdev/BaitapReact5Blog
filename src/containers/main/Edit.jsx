@@ -13,27 +13,38 @@ class Edit extends Component {
         }
     }
     componentWillMount(){
-        const idindex = window.location.pathname.substring(6);
-        if(!idindex){
-            this.props.history.push("/");
-        }
-        if ( this.props.isLoaded ){
-            const item_news2 = this.props.news.filter((item) => {
-                if ( item.idnews === parseInt(idindex,10) ) return true;
-                else return false;
-            })[0];
-            this.setState({
-                item_news:{...item_news2}
-            })
-        }
-        else {
-            const cb = (itemnews) => {
+        // if (localStorage.getItem('account')===null){
+        //     this.props.history.push("/");
+        // }
+        // else {
+
+
+            // const idindex = window.location.pathname.substring(6);
+            const idindex = +this.props.match.params.idEdit;
+
+            console.log(this.props)
+            // console.log('idindex: '+ idindex);
+            if(!idindex){
+                this.props.history.push("/");
+            }
+            if ( this.props.isLoaded ){
+                const item_news2 = this.props.news.filter((item) => {
+                    if ( item.idnews === parseInt(idindex,10) ) return true;
+                    else return false;
+                })[0];
                 this.setState({
-                    item_news:{...itemnews}
+                    item_news:{...item_news2}
                 })
             }
-            this.props.atx_news_get_a_news(idindex, cb);
-        }
+            else {
+                const cb = (itemnews) => {
+                    this.setState({
+                        item_news:{...itemnews}
+                    })
+                }
+                this.props.atx_news_get_a_news(idindex, cb);
+            }
+        // }
     }
     render() {
         return (

@@ -36,7 +36,7 @@ class FormItemPostComment extends Component {
     }
     render() {
         return (
-            <div>
+            <div className='postcomment'>
                 <textarea 
                     autoFocus
                     className="form-control comment" 

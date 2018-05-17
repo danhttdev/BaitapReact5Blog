@@ -25,6 +25,8 @@ class ItemNewsFull extends Component {
             isCommentClick: true,
             isNumLikesClick:false,
             isLike: false,
+            arrLikes:[],
+            arrComments:[]
         }
     }
     onClickComment = () => {
@@ -41,7 +43,7 @@ class ItemNewsFull extends Component {
         if ( this.props.islogin === false ){
             alert(" Vui long dang nhap");
         }
-        else {
+        else {//if (this.props.key2 === 0){
             if (this.state.isLike){
                 const a= this.props.arrLikes.filter((item) => {
                     if (item.iduser === this.props.userlogin.id) return true;
@@ -50,8 +52,8 @@ class ItemNewsFull extends Component {
                 const unlike = { idnewsForUnlike: a.idlike , idnews:a.idnews};
                 const cb = (e) => {
                     this.setState({
-                        isLike: false
-                    });
+                        isLike: !this.state.isLike
+                    });  
                 }
                 this.props.atx_news_unlike(unlike, cb);
             }
@@ -59,12 +61,44 @@ class ItemNewsFull extends Component {
                 const like = {idnewsForLike:this.props.idNews, iduser:this.props.userlogin.id, date:getDate(), fullname: this.props.userlogin?this.props.userlogin.fullname:''};
                 const cb = (e) => {
                     this.setState({
-                        isLike: true
+                        isLike: !this.state.isLike
                     });  
                 }
                 this.props.atx_news_like(like, cb);
             }
         }
+
+        // else if (this.props.key2 === 1){
+        //     if (this.state.isLike){ // liked
+        //         const cb = (e) => {
+        //             this.setState({
+        //                 arrLikes: this.state.arrLikes.filter((item) => {
+        //                     if (item.iduser===this.props.userlogin.id) return false;return true;
+        //                 }),
+        //                 isLike: !this.state.isLike
+        //             })
+        //         }
+        //         const a= this.state.arrLikes.filter((item) => {
+        //             if (item.iduser === this.props.userlogin.id) return true;
+        //             return false;
+        //         })[0];
+        //         const unlike = { idnewsForUnlike: a.idlike , idnews:a.idnews};
+        //         this.props.atx_news_unlike(unlike,cb);
+
+        //     }
+        //     else {
+        //         const cb = (e) => {
+        //             this.setState({
+        //                 arrLikes: [...this.state.arrLikes,{...e}],
+        //                 isLike: !this.state.isLike
+        //             })
+        //         }
+        //         const like = {idnewsForLike:this.props.idNews, iduser:this.props.userlogin.id, date:getDate(), fullname: this.props.userlogin?this.props.userlogin.fullname:''};
+        //         this.props.atx_news_like(like,cb);
+        //     }
+        // }
+
+    
     }
     
     onCancelComment = () => {
@@ -78,6 +112,8 @@ class ItemNewsFull extends Component {
     }
 
     componentWillMount(){
+        console.log("my props");
+        console.log(this.props);
         this.props.arrLikes.forEach(element => {
             if (element.iduser === this.props.idlogin){
                 this.setState({
@@ -85,9 +121,10 @@ class ItemNewsFull extends Component {
                 })
             }
         });
-    }
-    componentWillReceiveProps(nextProps){
-        console.log(nextProps)
+        this.setState({
+            arrComments: this.props.arrComments,
+            arrLikes: this.props.arrLikes
+        })
     }
 
     render() {
@@ -103,15 +140,15 @@ class ItemNewsFull extends Component {
                 sortDate
             ).map(
                 (item) =>  <ItemComment 
-                            key={uuid()}
                             iduser={item.iduser}
+                            key={uuid()}
                             username={ item.fullname }
                             content={ item.content }
                             date= { item.date }/>
             )
         }
         if ( this.state.isNumLikesClick ) {
-            numLikesClick=this.props.arrLikes.map(
+            numLikesClick=this.state.arrLikes.map(
                 (item) =>  <ItemLike 
                             key={uuid()}
                             username={ item.fullname }
@@ -141,7 +178,7 @@ class ItemNewsFull extends Component {
                             <hr/>
                             <p>
                                 <a  className={ this.state.isLike?"btn btnliked":"btn btnlike"} onClick={ this.onClickLike}> </a>
-                                <b onClick={ this.onNumLikesClick } className='btn-num-like'> { this.props.arrLikes.length } </b>
+                                <b onClick={ this.onNumLikesClick } className='btn-num-like'> { this.state.arrLikes.length } </b>
                                 {
                                     this.props.idlogin===this.props.iduser?<a  className="btndelete" onClick={this.onDelete}>X</a>:''
                                 }
@@ -153,7 +190,6 @@ class ItemNewsFull extends Component {
                             </p>
                         </div>
                         { numLikesClick }
-                        {/* <a className="btn btn-default btn-cancel-cmt" onClick={this.onCancelComment}>Xem toàn bộ</a> */}
                         { edt }
                         { cmt }
                     </div>

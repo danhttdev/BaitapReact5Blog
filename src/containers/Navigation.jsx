@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom'
-import { at_account_logout } from '../actions/actionAccount';
+import { 
+    at_account_logout,
+    at_account_login
+} from '../actions/actionAccount';
 class Navigation extends Component {
     constructor(props){
         super(props);
@@ -16,6 +19,9 @@ class Navigation extends Component {
         this.props.at_account_logout();
     }
     componentWillMount(){
+        if (localStorage.getItem('account') !== null){
+            this.props.at_account_login(JSON.parse(localStorage.getItem('account')));
+        }
         if (this.props.isLogin){
             this.setState({
                 userlogin: {...this.props.userlogin}
@@ -42,8 +48,15 @@ class Navigation extends Component {
                                 <Link to='/newslatest' className='navbar-brand'>Tin mới</Link>
                             </li>
                             <li>
-                                <Link to='/contact' className='navbar-brand'>Liên hệ</Link>
+                                <Link to='/contact' className='navbar-brand '>Liên hệ</Link>
                             </li>
+                            {
+                                this.props.isPermit?'':<li>
+                                                            <i className="fa fa-spinner fa-spin waiting" > </i> 
+                                                        </li>
+                            }
+                            
+                           
                         </ul>
                         <div className="navbar-right">
                             {
@@ -89,10 +102,12 @@ class Navigation extends Component {
 function MapStateToProps(state){
     return {
         isLogin: state.reducerAccount.isLogin,
-        userlogin: state.reducerAccount.userlogin
+        userlogin: state.reducerAccount.userlogin,
+        isPermit: state.reducerCommon.isPermit
     }
 }
 const MapDispatchToProps = {
-    at_account_logout
+    at_account_logout,
+    at_account_login    
 }
 export default connect(MapStateToProps, MapDispatchToProps)(Navigation);

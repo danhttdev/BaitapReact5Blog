@@ -66,20 +66,24 @@ export default function reducer(state = initialStateNews, action) {
                 })                
             }        
         case NEWS_UNLIKE:
-            const arr_unlike = state.news.map((item) => {
-                let item2 = {...item};
+            const news = state.news.map((item) => {
                 if (item.idnews === action.payload.unlike.idnews){
-                    const arr_2 = item2.arrLikes.filter((itemlike) => {
-                        if (itemlike.idlike === action.payload.unlike.idnewsForUnlike) return false;
+                    const arr_2 = item.arrLikes.filter((itemlike) => {
+                        if (itemlike.idlike === action.payload.unlike.idnewsForUnlike){
+                            return false;
+                        } 
                         return true;
                     })
-                    item2.arrLikes = [...arr_2];
+                    return {
+                        ...item,
+                        arrLikes: arr_2,
+                    }
                 }
-                return item2;
+                return item;
             })
             return {
                 ...state,
-                news: arr_unlike
+                news,
             }   
         case NEWS_LIKE:
             const arr = state.news.map((item) => {
@@ -91,7 +95,7 @@ export default function reducer(state = initialStateNews, action) {
             })
             return {
                 ...state,
-                news: arr
+                news: [...arr]
             }       
         default:
             return state;

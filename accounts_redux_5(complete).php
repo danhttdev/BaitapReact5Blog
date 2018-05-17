@@ -271,7 +271,7 @@ function getData_news_a_news( $idNewGetFull) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-function updateNews($id,$title,$content,$date){
+function updateNews($id,$title,$content,$date){//ok
     $conn = mysqli_connect('localhost','root', '12345678','baitapreact5blog') or die ('Khong ket noi dc');
     mysqli_set_charset($conn, 'utf8');
     $sqlUpdateLike = "UPDATE news SET title = '$title' , content='$content', date='$date' WHERE idnews='$id'";
@@ -281,7 +281,7 @@ function updateNews($id,$title,$content,$date){
     else echo "kkkkk";
 }
 
-function add_comment($idNewsComment,$iduser,$content,$date){
+function add_comment($idNewsComment,$iduser,$content,$date){ //ok
     $conn = mysqli_connect('localhost', 'root', '12345678', 'baitapreact5blog') or die ('Không thể kết nối tới database');
     mysqli_set_charset($conn, 'utf8');
     $ran = rand();
@@ -296,53 +296,60 @@ function add_comment($idNewsComment,$iduser,$content,$date){
 }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function like($id){
-    $conn = mysqli_connect('localhost','root', '12345678','baitapreact4') or die ('Khong ket noi dc');
-    $sqlUpdateLike = "UPDATE news SET countlike = countlike + 1 WHERE id='$id'";
-    if (mysqli_query($conn,$sqlUpdateLike)){
-        echo "LIKED";
+function news_like($idnews,$iduser,$date){ //ok
+    $conn = mysqli_connect('localhost', 'root', '12345678', 'baitapreact5blog') or die ('Không thể kết nối tới database');
+    $ran = rand();
+    $sqlSubmit = "INSERT INTO likes ( idlike, idnews, iduser, date) VALUES ('$ran','$idnews','$iduser','$date')";
+    if ($result2 = mysqli_query($conn,$sqlSubmit)){
+        $data_add_cmt = new stdClass();
+        $data_add_cmt->key="LIKED";
+        $data_add_cmt->id=$ran;
+        echo json_encode($data_add_cmt);
     }
+    else echo "ERR_LIKE";
 }
 
-function dislike($id){
-    $conn = mysqli_connect('localhost','root', '12345678','baitapreact4') or die ('Khong ket noi dc');
-    $sqlUpdateLike = "UPDATE news SET countlike = countlike - 1 WHERE id='$id'";
-    if (mysqli_query($conn,$sqlUpdateLike)){
-        echo "DISLIKED";
+function news_unlike($idlike) { //ok
+    $sqlDeleteLike = " DELETE FROM likes WHERE idlike='$idlike'";
+    $conn = mysqli_connect('localhost','root', '12345678','baitapreact5blog') or die ('Khong ket noi dc');
+    if (mysqli_query($conn,$sqlDeleteLike) ){
+        echo "UNLIKE";
     }
+    else echo "ERR_UNLIKE";
 }
 
-function editnews($idnews,$updatenews){
-    $conn = mysqli_connect('localhost','root', '12345678','baitapreact4') or die ('Khong ket noi dc');
-    $sqlUpdateLike = "UPDATE news SET content = '$updatenews' WHERE id='$idnews'";
-    if (mysqli_query($conn,$sqlUpdateLike)){
-        echo "EDITED";
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function update_view($idnewsView){//ok
+    $conn = mysqli_connect('localhost','root', '12345678','baitapreact5blog') or die ('Khong ket noi dc');
+    mysqli_set_charset($conn, 'utf8');
+    $sqlUpdateView = "UPDATE news SET views = views + 1  WHERE idnews='$idnewsView'";
+    if (mysqli_query($conn,$sqlUpdateView)){
+        echo "VIEWED";
     }
+    else echo "UN_VIEWED";
 }
+
+function updateAccount($idAccountUpdate, $username,$password,$fullname,$address,$phone, $gender){//ok
+    $conn = mysqli_connect('localhost','root', '12345678','baitapreact5blog') or die ('Khong ket noi dc');
+    mysqli_set_charset($conn, 'utf8');
+    $sqlUpdateLike = "UPDATE accounts SET username = '$username' , password='$password', fullname='$fullname', address='$address', phone='$phone', gender='$gender' WHERE id='$idAccountUpdate'";
+    if (mysqli_query($conn,$sqlUpdateLike)){
+        echo "UPDATED";
+    }
+    else echo "UN_UPDATED";
+}
+// function deletenews($id) {
+//     $sqlDeleteNews = " DELETE FROM news WHERE idnews='$id'";
+//     $conn = mysqli_connect('localhost','root', '12345678','baitapreact5blog') or die ('Khong ket noi dc');
+//     if (mysqli_query($conn,$sqlDeleteNews)){
+//         echo "DELETED";
+//     }
+// }
 
 function deletenews($idDelete) {
     $sqlDeleteNews = " DELETE FROM news WHERE idnews='$idDelete'";
@@ -353,16 +360,6 @@ function deletenews($idDelete) {
     if (mysqli_query($conn,$sqlDeleteNews) && mysqli_query($conn,$sqlDeleteLike) && mysqli_query($conn,$sqlDeleteComments)){
         echo "DELETED";
     }
-}
-
-function gender(){
-    echo "SIGNUP_COMPLETED";
-}
-function test(){
-    echo "Added php";
-}
-function deletenewstest($idDelete){
-    echo $idDelete;
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -391,49 +388,35 @@ switch ($method) {
         $date               = $data->date;
 
         $idDelete           = $data->idDelete;
-
         $idNewGetFull       = $data->idNewGetFull;
-
         $idNewsEdit         = $data->id;
-    
         $idNewsComment      = $data->idNewsComment;
-
-
-
-
-
-
-        $idnewslike         = $data->idnewslike;
-        $idnewsdislike      = $data->idnewsdislike;
-        $idnewsdelete       = $data->idnewsdelete;
-
-        $updatenews         = $data->updatenews;
-        $idnews             = $data->idnews;
+        $idnewsForLike      = $data->idnewsForLike;
+        $idnewsForUnlike    = $data->idnewsForUnlike;
+        $idnewsView         = $data->idnewsView;
+        $idAccountUpdate    = $data->idAccountUpdate;
 
         if ( $password!="" && $repassword=="") login($username,$password); //ok
-        //else if ( $gender != "") gender();
+        else if ( $idAccountUpdate != "") updateAccount($idAccountUpdate, $username,$password,$fullname,$address,$phone, $gender);
+        else if ( $idnewsForLike != "") news_like($idnewsForLike,$iduser,$date);//ok
+        else if ( $idnewsForUnlike != "") news_unlike($idnewsForUnlike); //ok
+        else if ( $idnewsView !="" ) update_view($idnewsView);
+
         else if ( $password == $repassword && $password!="") signup($username,$password,$fullname,$address,$phone, $gender);//ok
         else if ( $idNewsEdit !="" )  updateNews($idNewsEdit,$title,$content,$date);//ok
-        else if ( $idNewsComment !="") add_comment($idNewsComment,$iduser,$content,$date);
+        else if ( $idNewsComment !="") add_comment($idNewsComment,$iduser,$content,$date); //ok
 
         else if ( $content != "")  addnews($iduser,$title,$content,$date); //ok
         else if ( $idDelete != "") deletenews($idDelete);//ok
         else if ( $idNewGetFull != "") getData_news_a_news($idNewGetFull);//ok
 
-
-
-        else if ( $idnewslike != "") like($idnewslike);
-        else if ( $idnewsdislike != "" ) dislike($idnewsdislike);
-        else if ( $idnewsdelete != "") deletenews($idnewsdelete);
-
-        else if ( $updatenews != "" && $idnews != "") editnews($idnews,$updatenews);
         break;
     case 'DELETE':
         break;
     default:
         break;
 }
-sleep(0.3);
+sleep(0.5);
 
 mysqli_close($connect); 
 ?> 

@@ -96,6 +96,8 @@ class ItemNews extends Component {
         //////////////////////////////////////////////////////////////
     }
     onDelete = () => {
+        console.log("delete");
+        console.log({idDelete:this.props.idNews});
         this.props.atx_news_delete({idDelete:this.props.idNews});
     }
 
@@ -132,23 +134,34 @@ class ItemNews extends Component {
                 <div className="caption">
                     <h3 className='pheader2'><Link to={'/fullnews/'+this.props.idNews} >{ this.props.title }</Link></h3>
                     
-                    <p className="text-muted"><Link className="detail" to={'/contact/'+this.props.iduser} >{ this.props.fullname }</Link> <span className="detail"> đã đăng vào </span><i className="detail">{ this.props.date }  có <b>{this.props.views}</b> lượt xem</i></p>
+                    <p className="text-muted">
+                        <Link className="detail" to={'/contact/'+this.props.iduser} >{ this.props.fullname }</Link>
+                        <span className="detail"> đã đăng vào </span>
+                        <i className="detail">{ this.props.date }  
+                        </i>
+                    </p>
                     <p>
                     { this.props.content.length>250?this.props.content.substring(0,250).concat('......'):this.props.content }
                     </p>
                     <button className="btn btn-default " ><Link to={'/fullnews/'+this.props.idNews} >Xem thêm </Link></button>
                     <hr/>
+                    
                     <p>
-                        <a  className={ this.state.isLike?"btn btnliked":"btn btnlike"} onClick={ this.onClickLike}> </a>
-                        <b onClick={ this.onNumLikesClick } className='btn-num-like'> { this.props.likes } </b>
+                        {/* <a  className={ this.state.isLike?"btn btnliked":"btn btnlike"} onClick={ this.onClickLike}> </a> */}
+                        <i className="fa fa-thumbs-o-up fa1 faa-vertical animated" ></i>
+                        <b /*onClick={ this.onNumLikesClick }*/ className='btn-num-like'> { this.props.likes } </b>
                         {
                             this.props.idlogin===this.props.iduser?<a  className="btndelete" onClick={this.onDelete}>X</a>:''
                         }
                         {
                             this.props.idlogin===this.props.iduser?<span className="btnedit" onClick={this.onEdit}><Link to={'/edit/'+this.props.idNews}>..</Link></span>:''
                         }
-                        <a  className="btn btncomment" onClick={ this.onClickComment }> </a>
-                        <b>{ this.props.comments }</b>
+                        {/* <a  className="btn btncomment" onClick={ this.onClickComment }> </a> */}
+                        <i className="fa fa-commenting-o  faa-vertical animated"> </i> 
+                        <b> { this.props.comments }</b>
+                        <span> </span>
+                        <i className="fa fa-spinner fa-spin" > </i> 
+                        <b>{this.props.views}</b> lượt xem
                     </p>
                 </div>
                 { numLikesClick }

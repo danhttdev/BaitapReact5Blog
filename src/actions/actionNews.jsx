@@ -33,6 +33,8 @@ export function atx_news_add(news){
             .then((res)=> {
                 dispatch(at_common_toggle_permit());
                 if (res.data) {
+                    console.log('atx new res:');
+                    console.log(res.data);
                     const news2={...news, idnews: res.data.id, arrLikes:[],arrComments:[],views:0};
                     dispatch(at_news_add(news2));
                 }
@@ -212,7 +214,10 @@ export function atx_news_like(like ,cb){
                         fullname: like.fullname,
                         idnews: like.idnewsForLike
                     }
+                    console.log('at-like');
+                    dispatch(at_news_like(like2));
                     cb(like2);
+                    
                 }
             }).catch(error => {
                 dispatch(at_common_toggle_permit());
@@ -229,7 +234,11 @@ export function atx_news_unlike(unlike ,cb){
             .then((res)=> {
                 dispatch(at_common_toggle_permit());
                 if (res.data) {
+                    console.log('at-unlike');
+
+                    dispatch(at_news_unlike(unlike));
                     cb(unlike);
+                    
                 }
             }).catch(error => {
                 dispatch(at_common_toggle_permit());
@@ -244,6 +253,7 @@ export function atx_news_views(view ,cb){
             .then((res)=> {
                 if (res.data) {
                     cb(res.data);
+                 
                 }
             }).catch(error => {
             });

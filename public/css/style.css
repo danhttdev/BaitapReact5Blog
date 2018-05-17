@@ -33,6 +33,10 @@ body {
 }
 .thumbnailme {
     margin-bottom: 2px;
+    border-radius: 0px;
+    margin: 10px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 .btndelete {
     position: absolute;
@@ -140,10 +144,13 @@ body {
     width: 50px;
     height: 50px;
 }
-
+.thumbnailme, .thumbnail {
+       border: 0px;
+}
 .thumbnailme:hover {
     /* background-color: #369338; */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+ 
 }
 
 .btn-num-like:hover {
@@ -161,7 +168,8 @@ a:hover {
 
 .btn-cancel-cmt {
     /* float: right; */
-    margin-top: 3px;
+    margin:10px;
+    margin-top: 2px;
 }
 .card-account:hover {
     background-color: darksalmon;
@@ -204,4 +212,34 @@ a:hover {
     font: bold 0.8em serif;
     font-style: italic;
     color: #673ab7; 
+}
+
+.fa1 {
+    font-size: 36px;
+}
+.text-success {
+    font-size: 8px;
+}
+label.card  {
+    line-height: 0.8px;
+}
+hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+form {
+    padding: 10px;
+}
+.postcomment {
+    margin: 10px;
+}
+
+textarea {
+    border: 0px;
+    border-radius: 0px;
+}
+.waiting {
+    color: white;
+    margin-top: 17px;
 }

@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 
 import { 
     atx_news_get_a_news, 
-    atx_news_views
+    atx_news_views,
+    at_news_add
 } from '../../actions/actionNews';
 import {
     atx_getdata,
@@ -33,8 +34,8 @@ class FullNews extends Component {
         else {
             this.props.at_account_set_login_false();
         }
-        const idindex = window.location.pathname.substring(10);
-        if(!idindex){
+        const idindex = +this.props.match.params.idNew;
+        if(!idindex || !!!idindex){
             this.props.history.push("/");
         }
         if ( this.props.isLoaded ){
@@ -54,6 +55,7 @@ class FullNews extends Component {
                 this.setState({
                     item_news:{...itemnews}
                 })
+                this.props.at_news_add(itemnews);
             }
             this.props.atx_news_get_a_news(idindex, cb);
         }
@@ -62,6 +64,14 @@ class FullNews extends Component {
         const cb = (e) => {
         }
         this.props.atx_news_views(view, cb);
+    }
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            item_news: {...nextProps.news.filter((item) => {
+                if (item.idnews === +nextProps.match.params.idNew) return true;
+                return false;
+            })[0]}
+        })
     }
     render() {
         return (
@@ -82,7 +92,6 @@ class FullNews extends Component {
                                 comments= { this.state.item_news.arrComments.length }
                                 arrLikes={this.state.item_news.arrLikes}
                                 history={this.props.history}
-                                key2={this.state.key}
                             />:''
                 }
             </div>
@@ -103,7 +112,8 @@ const MapDispatchToProps = {
     at_account_set_login_true,
     at_account_login,
     at_account_set_login_false,
-    atx_news_views
+    atx_news_views,
+    at_news_add
 }
 
 export default connect(MapStateToProps, MapDispatchToProps)(FullNews);

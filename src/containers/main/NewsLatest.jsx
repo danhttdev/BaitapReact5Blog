@@ -20,24 +20,31 @@ class NewsLatest extends Component {
             sortDate
         );
         return (
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            
+            <div className="container">
+                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div className="thumbnail row2">
                     <div className="caption">
                         <h3>Bài viết đăng gần đây</h3>
                     </div>
-                    { arr_sort.map((item) => {
-                        return  <ItemNewsHot 
-                                    key={uuid()}
-                                    title={item.title}
-                                    date={item.date}
-                                    views={item.views}
-                                    likes={item.arrLikes.length}
-                                    idNews={item.idnews}
-                                    comments={item.arrComments.length}
-                                />
-                    })}
+                        { arr_sort.map((item) => {
+                            return  <ItemNewsHot 
+                                        key={uuid()}
+                                        title={item.title}
+                                        date={item.date}
+                                        views={item.views}
+                                        iduser={item.iduser}
+                                        fullname={item.fullname}
+                                        likes={item.arrLikes.length}
+                                        idNews={item.idnews}
+                                        comments={item.arrComments.length}
+                                    />
+                        })}
+                    </div>
                 </div>
             </div>
+            
+            
         );
     }
 }
